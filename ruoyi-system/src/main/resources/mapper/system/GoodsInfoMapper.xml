@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.GoodsInfoMapper">
+    
+    <resultMap type="GoodsInfo" id="GoodsInfoResult">
+        <result property="id"    column="id"    />
+        <result property="storehouseId"    column="storehouse_id"    />
+        <result property="supplierId"    column="supplier_id"    />
+        <result property="goodsCode"    column="goods_code"    />
+        <result property="goodsOutCode"    column="goods_out_code"    />
+        <result property="goodsName"    column="goods_name"    />
+        <result property="goodsBarcode"    column="goods_barcode"    />
+        <result property="goodsBrand"    column="goods_brand"    />
+        <result property="goodsClassification"    column="goods_classification"    />
+        <result property="goodsUnit"    column="goods_unit"    />
+        <result property="goodsWeight"    column="goods_weight"    />
+        <result property="costPrice"    column="cost_price"    />
+        <result property="taxRate"    column="tax_rate"    />
+        <result property="stockNum"    column="stock_num"    />
+        <result property="stockLockNum"    column="stock_lock_num"    />
+        <result property="dockingGoodsId"    column="docking_goods_id"    />
+        <result property="hsCode"    column="hs_code"    />
+        <result property="jdGuidancePrice"    column="jd_guidance_price"    />
+        <result property="tmGuidancePrice"    column="tm_guidance_price"    />
+        <result property="wyGuidancePrice"    column="wy_guidance_price"    />
+        <result property="msrp"    column="msrp"    />
+        <result property="nakedPrice"    column="naked_price"    />
+        <result property="onShelfStatus"    column="on_shelf_status"    />
+        <result property="freightRenewalAmount"    column="freight_renewal_amount"    />
+        <result property="grossWeight"    column="gross_weight"    />
+        <result property="freightAmount"    column="freight_amount"    />
+        <result property="finalFreightAmount"    column="final_freight_amount"    />
+        <result property="remark"    column="remark"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="storehouseName"   column="storehouse_name"    />
+        <result property="supplierName"     column="supplier_name"      />
+        <result property="auditStatus"      column="audit_status"   />
+        <result property="auditBy"      column="audit_by"   />
+        <result property="auditTime"    column="audit_time" />
+        <result property="recommend"    column="recommend" />
+        <result property="ifPackage"    column="if_package" />
+        <result property="ifBuildByOneself"    column="if_build_by_oneself" />
+        <result property="barCodeList"    column="bar_code_list" />
+        <result property="numberList"    column="number_list" />
+        <result property="vatRate"    column="vat_rate" />
+        <result property="tariffRate"    column="tariff_rate" />
+        <result property="exciseTaxRate"    column="excise_tax_rate" />
+        <result property="delFlag"    column="del_flag" />
+        <result property="platOnShelf"    column="plat_on_shelf" />
+        <result property="picVersion"    column="pic_version" />
+        <result property="expirDate"    column="expir_date" />
+        <result property="expirDateRemark"    column="expir_date_remark" />
+        <result property="keyWord"    column="key_word" />
+        <result property="buyNotice"    column="buy_notice" />
+        <result property="specModel"    column="spec_model" />
+        <result property="mainModel"    column="main_model" />
+        <result property="basis"    column="basis" />
+        <result property="originCountry"    column="origin_country" />
+        <result property="platBarcode"    column="plat_barcode" />
+    </resultMap>
+
+    <sql id="selectGoodsInfoVo">
+        select
+            id, storehouse_id, supplier_id, goods_code, goods_out_code,
+            goods_name, goods_barcode, goods_brand, goods_classification,
+            goods_unit, goods_weight, cost_price, tax_rate, stock_num,
+            stock_lock_num, docking_goods_id, hs_code, jd_guidance_price,
+            tm_guidance_price, wy_guidance_price, msrp, naked_price,
+            on_shelf_status, freight_renewal_amount, gross_weight, freight_amount,
+            final_freight_amount, remark, create_by, create_time, update_by,
+            update_time, audit_status, audit_by, audit_time, recommend,
+            if_package, if_build_by_oneself, bar_code_list, number_list,
+            vat_rate, tariff_rate, excise_tax_rate, del_flag, plat_on_shelf,
+            pic_version, expir_date, expir_date_remark, key_word, buy_notice,
+            spec_model, main_model, basis, origin_country, plat_barcode
+        from
+            goods_info
+    </sql>
+
+    <sql id="selectGoodsInfoListVo">
+        select
+            t1.id, t1.storehouse_id, t1.supplier_id, t1.goods_code, t1.goods_out_code,
+            t1.goods_name, t1.goods_barcode, t1.goods_brand, t1.goods_classification,
+            t1.goods_unit, t1.goods_weight, t1.cost_price, t1.tax_rate, t1.stock_num,
+            t1.stock_lock_num, t1.docking_goods_id, t1.hs_code, t1.jd_guidance_price,
+            t1.tm_guidance_price, t1.wy_guidance_price, t1.msrp, t1.naked_price,
+            t1.on_shelf_status, t1.freight_renewal_amount, t1.gross_weight, t1.freight_amount,
+            t1.final_freight_amount, t1.remark, t1.create_by, t1.create_time,
+            t1.update_by, t1.update_time, t2.storehouse_name, t3.supplier_name,
+            t1.audit_status, t1.audit_by, t1.audit_time, t1.recommend,
+            t1.if_package, t1.if_build_by_oneself, t1.bar_code_list, t1.number_list,
+            t1.vat_rate, t1.tariff_rate, t1.excise_tax_rate, t1.del_flag, t1.plat_on_shelf,
+            t1.pic_version, ifnull(t4.catalog_name, t1.goods_classification) as catalog_name,
+            t1.expir_date, t1.expir_date_remark, t1.key_word, t1.buy_notice,
+            t1.spec_model, t1.main_model, t1.basis, t1.origin_country, t1.plat_barcode
+        from
+            goods_info t1
+            left join supplier_storehouse_info t2 on t1.storehouse_id = t2.id
+            left join supplier_info t3 on t1.supplier_id = t3.id
+            left join catalog_info t4 on t1.goods_classification = t4.id
+    </sql>
+
+    <select id="selectGoodsInfoByGoodsCodeAndStorehouseId" resultMap="GoodsInfoResult">
+        <include refid="selectGoodsInfoVo" />
+        where
+            goods_code = #{goodsCode} and storehouse_id = #{storehouseId}
+            and del_flag = 1
+    </select>
+
+    <select id="selectGoodsInfoList" parameterType="GoodsInfo" resultMap="GoodsInfoResult">
+        select
+            t1.id, t1.storehouse_id, t1.supplier_id, t1.goods_code, t1.goods_out_code,
+            t1.goods_name, t1.goods_barcode, t1.goods_brand, t1.goods_classification,
+            t1.goods_unit, t1.goods_weight, t1.cost_price, t1.tax_rate, t1.stock_num,
+            t1.stock_lock_num, t1.docking_goods_id, t1.hs_code, t1.jd_guidance_price,
+            t1.tm_guidance_price, t1.wy_guidance_price, t1.msrp, t1.naked_price,
+            t1.on_shelf_status, t1.freight_renewal_amount, t1.gross_weight, t1.freight_amount,
+            t1.final_freight_amount, t1.remark, t1.create_by, t1.create_time,
+            t1.update_by, t1.update_time, t2.storehouse_name, t3.supplier_name,
+            t1.audit_status, t1.audit_by, t1.audit_time, t1.recommend,
+            t1.if_package, t1.if_build_by_oneself, t1.bar_code_list, t1.number_list,
+            t1.vat_rate, t1.tariff_rate, t1.excise_tax_rate, t1.del_flag, t1.plat_on_shelf,
+            t1.pic_version, t1.expir_date, t1.expir_date_remark,t1.key_word, t1.buy_notice,
+            t1.spec_model, t1.main_model, t1.basis, t1.origin_country, t1.plat_barcode
+        from
+            goods_info t1
+            left join supplier_storehouse_info t2 on t1.storehouse_id = t2.id
+            left join supplier_info t3 on t1.supplier_id = t3.id
+            <if test="sellerId != null and sellerId != '' and sellerOnshelfStatus != null">
+                left join seller_goods_shelf t4 on t1.id = t4.goods_id and t4.seller_id = #{sellerId}
+            </if>
+<!--            <if test="hasPic != null and hasPic != 0">-->
+<!--                left join (select goods_id, count(*) as hasPic  from goods_pic_info group by goods_id ) t6-->
+<!--                on t1.goods_barcode = t6.goods_id-->
+<!--            </if>-->
+
+        <where>
+            <if test="storehouseId != null  and storehouseId != ''"> and t1.storehouse_id = #{storehouseId}</if>
+            <if test="supplierId != null  and supplierId != ''"> and t1.supplier_id = #{supplierId}</if>
+            <if test="goodsCode != null  and goodsCode != ''"> and t1.goods_code like concat('%', #{goodsCode}, '%')</if>
+            <if test="goodsOutCode != null  and goodsOutCode != ''"> and t1.goods_out_code like concat('%', #{goodsOutCode}, '%')</if>
+            <if test="goodsName != null  and goodsName != ''"> and t1.goods_name like concat('%', #{goodsName}, '%')</if>
+            <if test="goodsBarcode != null  and goodsBarcode != ''"> and t1.goods_barcode like concat('%', #{goodsBarcode}, '%')</if>
+            <if test="goodsBrand != null  and goodsBrand != ''"> and t1.goods_brand like concat('%', #{goodsBrand}, '%')</if>
+            <if test="goodsClassification != null  and goodsClassification != ''"> and find_in_set(#{goodsClassification}, t1.goods_classification) </if>
+            <if test="goodsUnit != null  and goodsUnit != ''"> and t1.goods_unit = #{goodsUnit}</if>
+            <if test="goodsWeight != null "> and t1.goods_weight = #{goodsWeight}</if>
+            <if test="costPrice != null "> and t1.cost_price = #{costPrice}</if>
+            <if test="taxRate != null "> and t1.tax_rate = #{taxRate}</if>
+            <if test="stockNum != null "> and t1.stock_num = #{stockNum}</if>
+            <if test="stockLockNum != null "> and t1.stock_lock_num = #{stockLockNum}</if>
+            <if test="dockingGoodsId != null  and dockingGoodsId != ''"> and t1.docking_goods_id like concat('%', #{dockingGoodsId}, '%') </if>
+            <if test="hsCode != null  and hsCode != ''"> and t1.hs_code like concat('%', #{hsCode}, '%')</if>
+            <if test="jdGuidancePrice != null "> and t1.jd_guidance_price = #{jdGuidancePrice}</if>
+            <if test="tmGuidancePrice != null "> and t1.tm_guidance_price = #{tmGuidancePrice}</if>
+            <if test="wyGuidancePrice != null "> and t1.wy_guidance_price = #{wyGuidancePrice}</if>
+            <if test="msrp != null "> and t1.msrp = #{msrp}</if>
+            <if test="nakedPrice != null "> and t1.naked_price = #{nakedPrice}</if>
+            <if test="onShelfStatus != null "> and t1.on_shelf_status = #{onShelfStatus}</if>
+            <if test="freightRenewalAmount != null "> and t1.freight_renewal_amount = #{freightRenewalAmount}</if>
+            <if test="grossWeight != null "> and t1.gross_weight = #{grossWeight}</if>
+            <if test="freightAmount != null "> and t1.freight_amount = #{freightAmount}</if>
+            <if test="finalFreightAmount != null "> and t1.final_freight_amount = #{finalFreightAmount}</if>
+            <if test="auditStatus != null "> and t1.audit_status = #{auditStatus}</if>
+            <if test="recommend != null "> and t1.recommend = #{recommend}</if>
+
+            <if test="ifPackage != null "> and t1.if_package = #{ifPackage}</if>
+            <if test="ifBuildByOneself != null "> and t1.if_build_by_oneself = #{ifBuildByOneself}</if>
+            <if test="barCodeList != null "> and t1.bar_code_list like concat('%', #{barCodeList}, '%') </if>
+            <if test="numberList != null "> and t1.number_list = #{numberList}</if>
+            <if test="vatRate != null "> and t1.vat_rate = #{vatRate}</if>
+            <if test="tariffRate != null "> and t1.tariff_rate = #{tariffRate}</if>
+            <if test="exciseTaxRate != null "> and t1.excise_tax_rate = #{exciseTaxRate}</if>
+            <if test="delFlag != null "> and t1.del_flag = #{delFlag}</if>
+            <if test="delFlag == null "> and t1.del_flag = 1 </if>
+            <if test="platOnShelf != null "> and t1.plat_on_shelf = #{platOnShelf} </if>
+            <if test="picVersion != null "> and t1.pic_version = #{picVersion} </if>
+            <if test="stockNumStart != null"> and t1.stock_num &gt;= #{stockNumStart}</if>
+            <if test="stockNumEnd != null"> and t1.stock_num &lt;= #{stockNumEnd}</if>
+            <if test="costPriceStart != null"> and t1.cost_price &gt;= #{costPriceStart}</if>
+            <if test="costPriceEnd != null"> and t1.cost_price &lt;= #{costPriceEnd}</if>
+            <if test="keyWord != null"> and t1.key_word like concat('%', #{keyWord}, '%')</if>
+            <if test="costPriceEnd != null"> and t1.cost_price &lt;= #{costPriceEnd}</if>
+            <if test="platBarcode != null"> and t1.plat_barcode = #{platBarcode}</if>
+            <if test="sellerId != null and sellerId != '' and sellerOnshelfStatus != null">
+                <if test="sellerOnshelfStatus == 0">
+                    and t4.id is null
+                </if>
+                <if test="sellerOnshelfStatus == 1">
+                    and t4.id is not null
+                </if>
+            </if>
+            <if test="hasPic != null and hasPic != 0">
+                <if test="hasPic == 1">
+                    and
+                        exists (
+                        select distinct t6.goods_id from goods_pic_info t6 where  t6.goods_id = t1.goods_barcode
+                        )
+                </if>
+                <if test="hasPic == 2">
+                    and
+                        not exists (
+                            select distinct t6.goods_id from goods_pic_info t6 where  t6.goods_id = t1.goods_barcode
+                        )
+                </if>
+            </if>
+
+            <if test="hasCatalog != null and hasCatalog != 0">
+                <if test="hasCatalog == 1">
+                    and t1.goods_classification is not null and t1.goods_classification !=''
+                </if>
+                <if test="hasCatalog == 2">
+                    and (t1.goods_classification is null  or t1.goods_classification = '')
+                </if>
+            </if>
+            <if test="expirDateBegin != null  and expirDateBegin !=''">
+                and t1.expir_date &gt;= #{expirDateBegin}
+            </if>
+            <if test="expirDateEnd != null  and expirDateEnd !=''">
+                and t1.expir_date &lt;= #{expirDateEnd}
+            </if>
+
+        </where>
+        <choose>
+            <when test="sortColumn != null and sortColumn !=''">
+                order by t1.${sortColumn}  <if test="sortOrder != null and sortOrder !=''"> ${sortOrder}</if>
+            </when>
+            <otherwise>
+                order by t1.create_time desc
+            </otherwise>
+        </choose>
+
+    </select>
+    
+    <select id="selectGoodsInfoById" parameterType="String" resultMap="GoodsInfoResult">
+        <include refid="selectGoodsInfoListVo"/>
+        where t1.id = #{id}
+    </select>
+
+    <select id="selectGoodsInfoByIds" resultMap="GoodsInfoResult">
+        <include refid="selectGoodsInfoListVo"/>
+        where
+            t1.id in
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+    </select>
+
+    <insert id="insertGoodsInfo" parameterType="GoodsInfo">
+        insert into goods_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="storehouseId != null">storehouse_id,</if>
+            <if test="supplierId != null">supplier_id,</if>
+            <if test="goodsCode != null">goods_code,</if>
+            <if test="goodsOutCode != null">goods_out_code,</if>
+            <if test="goodsName != null">goods_name,</if>
+            <if test="goodsBarcode != null">goods_barcode,</if>
+            <if test="goodsBrand != null">goods_brand,</if>
+            <if test="goodsClassification != null">goods_classification,</if>
+            <if test="goodsUnit != null">goods_unit,</if>
+            <if test="goodsWeight != null">goods_weight,</if>
+            <if test="costPrice != null">cost_price,</if>
+            <if test="taxRate != null">tax_rate,</if>
+            <if test="stockNum != null">stock_num,</if>
+            <if test="stockLockNum != null">stock_lock_num,</if>
+            <if test="dockingGoodsId != null">docking_goods_id,</if>
+            <if test="hsCode != null">hs_code,</if>
+            <if test="jdGuidancePrice != null">jd_guidance_price,</if>
+            <if test="tmGuidancePrice != null">tm_guidance_price,</if>
+            <if test="wyGuidancePrice != null">wy_guidance_price,</if>
+            <if test="msrp != null">msrp,</if>
+            <if test="nakedPrice != null">naked_price,</if>
+            <if test="onShelfStatus != null">on_shelf_status,</if>
+            <if test="freightRenewalAmount != null">freight_renewal_amount,</if>
+            <if test="grossWeight != null">gross_weight,</if>
+            <if test="freightAmount != null">freight_amount,</if>
+            <if test="finalFreightAmount != null">final_freight_amount,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="auditStatus != null">audit_status,</if>
+            <if test="auditBy != null">audit_by,</if>
+            <if test="auditTime != null">audit_time,</if>
+            <if test="recommend != null">recommend,</if>
+
+            <if test="ifPackage != null ">if_package,</if>
+            <if test="ifBuildByOneself != null ">if_build_by_oneself,</if>
+            <if test="barCodeList != null ">bar_code_list,</if>
+            <if test="numberList != null ">number_list,</if>
+            <if test="vatRate != null ">vat_rate,</if>
+            <if test="tariffRate != null ">tariff_rate,</if>
+            <if test="exciseTaxRate != null ">excise_tax_rate,</if>
+            <if test="delFlag != null ">del_flag,</if>
+            <if test="platOnShelf != null ">plat_on_shelf,</if>
+            <if test="picVersion != null ">pic_version,</if>
+            <if test="expirDate != null ">expir_date,</if>
+            <if test="expirDateRemark != null ">expir_date_remark,</if>
+
+            <if test="keyWord != null ">key_word,</if>
+            <if test="buyNotice != null ">buy_notice,</if>
+
+            <if test="specModel != null ">spec_model,</if>
+            <if test="mainModel != null ">main_model,</if>
+            <if test="basis != null ">basis,</if>
+            <if test="originCountry != null ">origin_country,</if>
+
+            <if test="platBarcode != null ">plat_barcode,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="storehouseId != null">#{storehouseId},</if>
+            <if test="supplierId != null">#{supplierId},</if>
+            <if test="goodsCode != null">#{goodsCode},</if>
+            <if test="goodsOutCode != null">#{goodsOutCode},</if>
+            <if test="goodsName != null">#{goodsName},</if>
+            <if test="goodsBarcode != null">#{goodsBarcode},</if>
+            <if test="goodsBrand != null">#{goodsBrand},</if>
+            <if test="goodsClassification != null">#{goodsClassification},</if>
+            <if test="goodsUnit != null">#{goodsUnit},</if>
+            <if test="goodsWeight != null">#{goodsWeight},</if>
+            <if test="costPrice != null">#{costPrice},</if>
+            <if test="taxRate != null">#{taxRate},</if>
+            <if test="stockNum != null">#{stockNum},</if>
+            <if test="stockLockNum != null">#{stockLockNum},</if>
+            <if test="dockingGoodsId != null">#{dockingGoodsId},</if>
+            <if test="hsCode != null">#{hsCode},</if>
+            <if test="jdGuidancePrice != null">#{jdGuidancePrice},</if>
+            <if test="tmGuidancePrice != null">#{tmGuidancePrice},</if>
+            <if test="wyGuidancePrice != null">#{wyGuidancePrice},</if>
+            <if test="msrp != null">#{msrp},</if>
+            <if test="nakedPrice != null">#{nakedPrice},</if>
+            <if test="onShelfStatus != null">#{onShelfStatus},</if>
+            <if test="freightRenewalAmount != null">#{freightRenewalAmount},</if>
+            <if test="grossWeight != null">#{grossWeight},</if>
+            <if test="freightAmount != null">#{freightAmount},</if>
+            <if test="finalFreightAmount != null">#{finalFreightAmount},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="auditStatus != null">#{auditStatus},</if>
+            <if test="auditBy != null">#{auditBy},</if>
+            <if test="auditTime != null">#{auditTime},</if>
+            <if test="recommend != null">#{recommend},</if>
+
+            <if test="ifPackage != null ">#{ifPackage},</if>
+            <if test="ifBuildByOneself != null ">#{ifBuildByOneself},</if>
+            <if test="barCodeList != null ">#{barCodeList},</if>
+            <if test="numberList != null ">#{numberList},</if>
+            <if test="vatRate != null ">#{vatRate},</if>
+            <if test="tariffRate != null ">#{tariffRate},</if>
+            <if test="exciseTaxRate != null ">#{exciseTaxRate},</if>
+            <if test="delFlag != null ">#{delFlag},</if>
+            <if test="platOnShelf != null ">#{platOnShelf},</if>
+            <if test="picVersion != null ">#{picVersion},</if>
+            <if test="expirDate != null ">#{expirDate},</if>
+            <if test="expirDateRemark != null ">#{expirDateRemark},</if>
+
+            <if test="keyWord != null ">#{keyWord},</if>
+            <if test="buyNotice != null ">#{buyNotice},</if>
+
+            <if test="specModel != null ">#{specModel},</if>
+            <if test="mainModel != null ">#{mainModel},</if>
+            <if test="basis != null ">#{basis},</if>
+            <if test="originCountry != null ">#{originCountry},</if>
+
+            <if test="platBarcode != null ">#{platBarcode},</if>
+         </trim>
+    </insert>
+
+    <update id="updateGoodsInfo" parameterType="GoodsInfo">
+        update goods_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="storehouseId != null">storehouse_id = #{storehouseId},</if>
+            <if test="supplierId != null">supplier_id = #{supplierId},</if>
+            <if test="goodsCode != null">goods_code = #{goodsCode},</if>
+            <if test="goodsOutCode != null">goods_out_code = #{goodsOutCode},</if>
+            <if test="goodsName != null">goods_name = #{goodsName},</if>
+            <if test="goodsBarcode != null">goods_barcode = #{goodsBarcode},</if>
+            <if test="goodsBrand != null">goods_brand = #{goodsBrand},</if>
+            <if test="goodsClassification != null">goods_classification = #{goodsClassification},</if>
+            <if test="goodsUnit != null">goods_unit = #{goodsUnit},</if>
+            <if test="goodsWeight != null">goods_weight = #{goodsWeight},</if>
+            <if test="costPrice != null">cost_price = #{costPrice},</if>
+            <if test="taxRate != null">tax_rate = #{taxRate},</if>
+            <if test="stockNum != null">stock_num = #{stockNum},</if>
+            <if test="stockLockNum != null">stock_lock_num = #{stockLockNum},</if>
+            <if test="dockingGoodsId != null">docking_goods_id = #{dockingGoodsId},</if>
+            <if test="hsCode != null">hs_code = #{hsCode},</if>
+            <if test="jdGuidancePrice != null">jd_guidance_price = #{jdGuidancePrice},</if>
+            <if test="tmGuidancePrice != null">tm_guidance_price = #{tmGuidancePrice},</if>
+            <if test="wyGuidancePrice != null">wy_guidance_price = #{wyGuidancePrice},</if>
+            <if test="msrp != null">msrp = #{msrp},</if>
+            <if test="nakedPrice != null">naked_price = #{nakedPrice},</if>
+            <if test="onShelfStatus != null">on_shelf_status = #{onShelfStatus},</if>
+            <if test="freightRenewalAmount != null">freight_renewal_amount = #{freightRenewalAmount},</if>
+            <if test="grossWeight != null">gross_weight = #{grossWeight},</if>
+            <if test="freightAmount != null">freight_amount = #{freightAmount},</if>
+            <if test="finalFreightAmount != null">final_freight_amount = #{finalFreightAmount},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="auditStatus != null">audit_status = #{auditStatus},</if>
+            <if test="auditBy != null">audit_by = #{auditBy},</if>
+            <if test="auditTime != null">audit_time = #{auditTime},</if>
+            <if test="recommend != null">recommend = #{recommend},</if>
+
+            <if test="ifPackage != null ">if_package = #{ifPackage},</if>
+            <if test="ifBuildByOneself != null ">if_build_by_oneself = #{ifBuildByOneself},</if>
+            <if test="barCodeList != null ">bar_code_list = #{barCodeList},</if>
+            <if test="numberList != null ">number_list = #{numberList},</if>
+            <if test="vatRate != null ">vat_rate = #{vatRate},</if>
+            <if test="tariffRate != null ">tariff_rate = #{tariffRate},</if>
+            <if test="exciseTaxRate != null ">excise_tax_rate = #{exciseTaxRate},</if>
+            <if test="delFlag != null ">del_flag = #{delFlag},</if>
+            <if test="platOnShelf != null ">plat_on_shelf = #{platOnShelf},</if>
+            <if test="picVersion != null ">pic_version = #{picVersion},</if>
+            <if test="expirDate != null ">expir_date = #{expirDate},</if>
+            <if test="expirDateRemark != null ">expir_date_remark = #{expirDateRemark},</if>
+            <if test="keyWord != null ">key_word = #{keyWord},</if>
+            <if test="buyNotice != null ">buy_notice = #{buyNotice},</if>
+            <if test="specModel != null ">spec_model = #{specModel},</if>
+            <if test="mainModel != null ">main_model = #{mainModel},</if>
+            <if test="basis != null ">basis = #{basis},</if>
+            <if test="originCountry != null ">origin_country = #{originCountry},</if>
+            <if test="platBarcode != null ">plat_barcode = #{platBarcode},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+<!--    <delete id="deleteGoodsInfoById" parameterType="String">
+        delete from goods_info where id = #{id}
+    </delete>-->
+
+    <delete id="deleteGoodsInfoById" parameterType="String">
+        update goods_info set del_flag = 2 where id = #{id}
+    </delete>
+
+<!--
+    <delete id="deleteGoodsInfoByIds" parameterType="String">
+        delete from goods_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+-->
+
+    <delete id="deleteGoodsInfoByIds" parameterType="String">
+        update goods_info set del_flag = 2 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="platOnshelf" parameterType="GoodsInfo">
+        update goods_info set plat_on_shelf = #{platOnShelf} where id = #{id}
+    </update>
+
+
+    <!-- 以下是销售方查询商品信息  -->
+    <resultMap type="SellerGoodsInfo" id="SellerGoodsInfoResult">
+        <result property="goodsBarcode"    column="goods_barcode"    />
+        <result property="goodsName"    column="goods_name"    />
+        <result property="msrp"    column="msrp"    />
+        <result property="vatRate"    column="vat_rate" />
+        <result property="tariffRate"    column="tariff_rate" />
+        <result property="exciseTaxRate"    column="excise_tax_rate" />
+        <result property="platBarcode"    column="plat_barcode" />
+    </resultMap>
+
+    <resultMap id="SellerGoodsStorehouseInfoResult" type="SellerGoodsStorehouseInfo">
+        <result property="goodsId" column="goods_id"/>
+        <result property="goodsBarcode"    column="goods_barcode"    />
+        <result property="goodsName"    column="goods_name"    />
+        <result property="msrp"    column="msrp"    />
+        <result property="vatRate"    column="vat_rate" />
+        <result property="tariffRate"    column="tariff_rate" />
+        <result property="exciseTaxRate"    column="excise_tax_rate" />
+
+        <result property="storehouseId" column="storehouse_id" />
+        <result property="storehouseName" column="storehouse_name"/>
+        <result property="stockNum" column="stock_num"/>
+        <result property="costPrice" column="cost_price"/>
+        <result property="nakedPrice" column="naked_price"/>
+        <result property="freightRenewalAmount" column="freight_renewal_amount"/>
+        <result property="grossWeight" column="gross_weight"/>
+        <result property="freightAmount" column="freight_amount"/>
+        <result property="finalFreightAmount" column="final_freight_amount"/>
+        <result property="onShelfStatus" column="on_shelf_status" />
+        <result property="expirDate" column="expir_date" />
+        <result property="platBarcode" column="plat_barcode" />
+
+        <result property="goodsWeight"    column="goods_weight"    />
+        <result property="goodsCode"    column="goods_code"    />
+        <result property="goodsOutCode"    column="goods_out_code"    />
+        <result property="goodsBrand"    column="goods_brand"    />
+        <result property="goodsClassification"    column="goods_classification"    />
+    </resultMap>
+
+    <select id="sellerGoodsList" parameterType="GoodsInfo" resultMap="SellerGoodsInfoResult">
+        select
+            t.*
+        from
+            (
+                select
+                    t1.id, t1.goods_barcode, t1.goods_name, t1.msrp, t1.vat_rate, t1.tariff_rate, t1.excise_tax_rate,
+                    t1.plat_barcode
+                from
+                    goods_info t1
+                    <if test="sellerId != null and sellerId != '' and sellerOnshelfStatus != null">
+                        left join seller_goods_shelf t4 on t1.id = t4.goods_id and t4.seller_id = #{sellerId}
+                    </if>
+                where
+                    t1.plat_on_shelf = 1 and t1.audit_status = 1 and t1.del_flag = 1
+                    <if test="storehouseId != null  and storehouseId != ''"> and t1.storehouse_id = #{storehouseId}</if>
+                    <if test="supplierId != null  and supplierId != ''"> and t1.supplier_id = #{supplierId}</if>
+                    <if test="goodsCode != null  and goodsCode != ''"> and t1.goods_code = #{goodsCode}</if>
+                    <if test="goodsOutCode != null  and goodsOutCode != ''"> and t1.goods_out_code = #{goodsOutCode}</if>
+                    <if test="goodsName != null  and goodsName != ''"> and t1.goods_name like concat('%', #{goodsName}, '%')</if>
+                    <if test="goodsBarcode != null  and goodsBarcode != ''"> and t1.goods_barcode = #{goodsBarcode}</if>
+                    <if test="goodsBrand != null  and goodsBrand != ''"> and t1.goods_brand = #{goodsBrand}</if>
+                    <if test="goodsClassification != null  and goodsClassification != ''"> and find_in_set(#{goodsClassification}, t1.goods_classification) </if>
+                    <if test="goodsUnit != null  and goodsUnit != ''"> and t1.goods_unit = #{goodsUnit}</if>
+                    <if test="goodsWeight != null "> and t1.goods_weight = #{goodsWeight}</if>
+                    <if test="costPrice != null "> and t1.cost_price = #{costPrice}</if>
+                    <if test="taxRate != null "> and t1.tax_rate = #{taxRate}</if>
+                    <if test="stockNum != null "> and t1.stock_num = #{stockNum}</if>
+                    <if test="stockLockNum != null "> and t1.stock_lock_num = #{stockLockNum}</if>
+                    <if test="dockingGoodsId != null  and dockingGoodsId != ''"> and t1.docking_goods_id = #{dockingGoodsId}</if>
+                    <if test="hsCode != null  and hsCode != ''"> and t1.hs_code = #{hsCode}</if>
+                    <if test="jdGuidancePrice != null "> and t1.jd_guidance_price = #{jdGuidancePrice}</if>
+                    <if test="tmGuidancePrice != null "> and t1.tm_guidance_price = #{tmGuidancePrice}</if>
+                    <if test="wyGuidancePrice != null "> and t1.wy_guidance_price = #{wyGuidancePrice}</if>
+                    <if test="msrp != null "> and t1.msrp = #{msrp}</if>
+                    <if test="nakedPrice != null "> and t1.naked_price = #{nakedPrice}</if>
+                    <if test="onShelfStatus != null "> and t1.on_shelf_status = #{onShelfStatus}</if>
+                    <if test="freightRenewalAmount != null "> and t1.freight_renewal_amount = #{freightRenewalAmount}</if>
+                    <if test="grossWeight != null "> and t1.gross_weight = #{grossWeight}</if>
+                    <if test="freightAmount != null "> and t1.freight_amount = #{freightAmount}</if>
+                    <if test="finalFreightAmount != null "> and t1.final_freight_amount = #{finalFreightAmount}</if>
+                    <if test="auditStatus != null "> and t1.audit_status = #{auditStatus}</if>
+                    <if test="recommend != null "> and t1.recommend = #{recommend}</if>
+
+                    <if test="ifPackage != null "> and t1.if_package = #{ifPackage}</if>
+                    <if test="ifBuildByOneself != null "> and t1.if_build_by_oneself = #{ifBuildByOneself}</if>
+                    <if test="barCodeList != null "> and t1.bar_code_list = #{barCodeList}</if>
+                    <if test="numberList != null "> and t1.number_list = #{numberList}</if>
+                    <if test="vatRate != null "> and t1.vat_rate = #{vatRate}</if>
+                    <if test="tariffRate != null "> and t1.tariff_rate = #{tariffRate}</if>
+                    <if test="exciseTaxRate != null "> and t1.excise_tax_rate = #{exciseTaxRate}</if>
+                    <if test="delFlag != null "> and t1.del_flag = #{delFlag}</if>
+                    <if test="delFlag == null "> and t1.del_flag = 1 </if>
+                    <if test="platOnShelf != null "> and t1.plat_on_shelf = #{platOnShelf} </if>
+                    <if test="picVersion != null "> and t1.pic_version = #{picVersion} </if>
+                    <if test="stockNumStart != null"> and t1.stock_num &gt;= #{stockNumStart}</if>
+                    <if test="stockNumEnd != null"> and t1.stock_num &lt;= #{stockNumEnd}</if>
+                    <if test="costPriceStart != null"> and t1.cost_price &gt;= #{costPriceStart}</if>
+                    <if test="costPriceEnd != null"> and t1.cost_price &lt;= #{costPriceEnd}</if>
+                    <if test="sellerId != null and sellerId != '' and sellerOnshelfStatus != null">
+                        <if test="sellerOnshelfStatus == 0">
+                            and t4.id is null
+                        </if>
+                        <if test="sellerOnshelfStatus == 1">
+                            and t4.id is not null
+                        </if>
+                    </if>
+                 order by create_time desc
+            ) t
+        group by t.goods_barcode
+    </select>
+
+    <select id="sellerGoodsStorehouseInfoList" resultMap="SellerGoodsStorehouseInfoResult">
+        select
+            g.id as goods_id, g.storehouse_id, s.storehouse_name, g.stock_num, g.cost_price, g.naked_price, g.freight_renewal_amount,
+            g.gross_weight, g.freight_amount, g.final_freight_amount, g.expir_date, g.plat_barcode
+        from
+            goods_info g left join supplier_storehouse_info s on g.storehouse_id = s.id
+        where
+            g.plat_on_shelf = 1 and g.audit_status = 1 and g.del_flag = 1 and g.goods_barcode = #{goodsBarcode}
+        order by g.create_time desc
+    </select>
+
+    <select id="sellerGoodsStorehouseInfoDetail" resultMap="SellerGoodsStorehouseInfoResult">
+        select
+            g.goods_barcode, g.goods_name, g.vat_rate, g.tariff_rate, g.excise_tax_rate,
+            g.plat_barcode, g.goods_weight, g.goods_code, g.goods_out_code, g.goods_brand, g.goods_classification,
+            g.id goods_id, g.storehouse_id, s.storehouse_name, g.stock_num, g.cost_price, g.naked_price, g.freight_renewal_amount,
+            g.gross_weight, g.freight_amount, g.final_freight_amount, g.expir_date, g.plat_barcode,
+            case
+                when sgs.id is null then 0
+                else 1
+            end 'on_shelf_status'
+        from
+            goods_info g left join supplier_storehouse_info s on g.storehouse_id = s.id
+            left join seller_goods_shelf sgs on g.id = sgs.goods_id  and sgs.seller_id = #{sellerId}
+        where
+            g.plat_on_shelf = 1 and g.audit_status = 1 and g.del_flag = 1 and g.goods_barcode = #{goodsBarcode}
+        order by g.create_time desc
+    </select>
+
+    <resultMap type="SellerGoodsDetail" id="SellerGoodsDetailResult">
+        <result property="id"    column="id"    />
+        <result property="goodsName"    column="goods_name"    />
+        <result property="goodsWeight"    column="goods_weight"    />
+        <result property="goodsBarcode"    column="goods_barcode"    />
+        <result property="goodsCode"    column="goods_code"    />
+        <result property="goodsOutCode"    column="goods_out_code"    />
+        <result property="goodsBrand"    column="goods_brand"    />
+        <result property="goodsClassification"    column="goods_classification"    />
+        <result property="expirDate" column="expir_date" />
+    </resultMap>
+
+    <select id="sellerGoodsDetail" resultMap="SellerGoodsDetailResult" parameterType="string">
+        select
+            id, goods_name, goods_weight, goods_barcode, goods_code, goods_out_code,
+            goods_brand, goods_classification, expir_date
+        from
+            goods_info
+        where
+            goods_barcode = #{goodsBarcode}
+        order by create_time desc limit 1
+    </select>
+
+    <update id="updateGoodsFreightByStorehouse" parameterType="GoodsInfo">
+        update goods_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="freightRenewalAmount != null">freight_renewal_amount = #{freightRenewalAmount},</if>
+            <if test="freightAmount != null">freight_amount = #{freightAmount},</if>
+            <if test="finalFreightAmount != null">final_freight_amount = #{finalFreightAmount},</if>
+        </trim>
+        where storehouse_id = #{storehouseId}
+
+    </update>
+
+    <update id="updateGoodsInfoByOutCode" parameterType="GoodsInfoUploadUpdateVo">
+        update
+            goods_info
+        set
+            goods_code = #{goodsCode},
+            docking_goods_id = #{dockingGoodsId},
+            goods_barcode = #{goodsBarcode},
+            naked_price = #{nakedPrice},
+            cost_price = #{costPrice},
+            msrp = #{msrp},
+            jd_guidance_price = #{jdGuidancePrice},
+            tm_guidance_price = #{tmGuidancePrice},
+            wy_guidance_price = #{wyGuidancePrice},
+            stock_num = #{stockNum},
+            plat_on_shelf = #{platOnShelf},
+            remark = #{remark},
+            expir_date = #{expirDate},
+            key_word = #{keyWord},
+            buy_notice = #{buyNotice},
+            spec_model = #{specModel},
+            main_model = #{mainModel},
+            basis = #{basis},
+            origin_country = #{originCountry},
+            goods_name = #{goodsName},
+            expir_date_remark = #{expirDateRemark}
+        where
+            goods_out_code = #{goodsOutCode}
+    </update>
+
+    <update id="updateGoodsStockByGoodsCode" parameterType="GoodsInfoStockUpdateVo">
+        update goods_info set stock_num = #{stockNum} where goods_code = #{goodsCode}
+    </update>
+
+    <update id="updateGoodsTaxRateById" parameterType="string">
+        update
+            goods_info a inner JOIN HSCode b on a.hs_code = b.HSCode
+        set
+            a.vat_rate=b.VATRate,a.excise_tax_rate=b.ExciseTaxRate,a.tariff_rate=b.TariffRate
+        where
+            a.id = #{id}
+    </update>
+</mapper>

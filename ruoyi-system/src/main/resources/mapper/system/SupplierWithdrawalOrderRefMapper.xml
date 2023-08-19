@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SupplierWithdrawalOrderRefMapper">
+
+    <resultMap type="SupplierWithdrawalOrderRef" id="SupplierWithdrawalOrderRefResult">
+        <result property="id"    column="id"    />
+        <result property="supplierWithdrawalId"    column="supplier_withdrawal_id"    />
+        <result property="orderInfoId"    column="order_info_id"    />
+    </resultMap>
+
+    <sql id="selectSupplierWithdrawalOrderRefVo">
+        select id, supplier_withdrawal_id, order_info_id from supplier_withdrawal_order_ref
+    </sql>
+
+    <select id="selectSupplierWithdrawalOrderRefList" parameterType="SupplierWithdrawalOrderRef" resultMap="SupplierWithdrawalOrderRefResult">
+        <include refid="selectSupplierWithdrawalOrderRefVo"/>
+        <where>
+            <if test="supplierWithdrawalId != null "> and supplier_withdrawal_id = #{supplierWithdrawalId}</if>
+            <if test="orderInfoId != null "> and order_info_id = #{orderInfoId}</if>
+        </where>
+    </select>
+
+    <select id="selectSupplierWithdrawalOrderRefById" parameterType="Long" resultMap="SupplierWithdrawalOrderRefResult">
+        <include refid="selectSupplierWithdrawalOrderRefVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSupplierWithdrawalOrderRef" parameterType="SupplierWithdrawalOrderRef" useGeneratedKeys="true" keyProperty="id">
+        insert into supplier_withdrawal_order_ref
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="supplierWithdrawalId != null">supplier_withdrawal_id,</if>
+            <if test="orderInfoId != null">order_info_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="supplierWithdrawalId != null">#{supplierWithdrawalId},</if>
+            <if test="orderInfoId != null">#{orderInfoId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSupplierWithdrawalOrderRef" parameterType="SupplierWithdrawalOrderRef">
+        update supplier_withdrawal_order_ref
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="supplierWithdrawalId != null">supplier_withdrawal_id = #{supplierWithdrawalId},</if>
+            <if test="orderInfoId != null">order_info_id = #{orderInfoId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSupplierWithdrawalOrderRefById" parameterType="Long">
+        delete from supplier_withdrawal_order_ref where id = #{id}
+    </delete>
+
+    <delete id="deleteSupplierWithdrawalOrderRefByIds" parameterType="String">
+        delete from supplier_withdrawal_order_ref where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <resultMap type="OrderInfo" id="OrderInfoResult">
+        <result property="id"    column="id"    />
+        <result property="storehouseId"    column="storehouse_id"    />
+        <result property="sellerId"    column="seller_id"    />
+        <result property="supplierId"    column="supplier_id"    />
+        <result property="orderType"    column="order_type"    />
+        <result property="sorderNo"    column="sorder_no"    />
+        <result property="declareOrderNo"    column="declare_order_no"    />
+        <result property="outTradeNo"    column="out_trade_no"    />
+        <result property="orderStatus"    column="order_status"    />
+        <result property="expressName"    column="express_name"    />
+        <result property="shipOrderNumber"    column="ship_order_number"    />
+        <result property="shopNick"    column="shop_nick"    />
+        <result property="buyerRegNo"    column="buyer_reg_no"    />
+        <result property="buyerName"    column="buyer_name"    />
+        <result property="buyerTelephone"    column="buyer_telephone"    />
+        <result property="buyerIdType"    column="buyer_id_type"    />
+        <result property="buyerIdNumber"    column="buyer_id_number"    />
+        <result property="consignee"    column="consignee"    />
+        <result property="consigneeTelephone"    column="consignee_telephone"    />
+        <result property="consigneeAddress"    column="consignee_address"    />
+        <result property="consigneeZipCode"    column="consignee_zip_code"    />
+        <result property="consigneeProvince"    column="consignee_province"    />
+        <result property="consigneeCity"    column="consignee_city"    />
+        <result property="consigneeDistrict"    column="consignee_district"    />
+        <result property="totalAmount"    column="total_amount"    />
+        <result property="realTotalAmount"    column="real_total_amount"    />
+        <result property="taxTotalAmount"    column="tax_total_amount"    />
+        <result property="discountAmount"    column="discount_amount"    />
+        <result property="freightAmount"    column="freight_amount"    />
+        <result property="payMode"    column="pay_mode"    />
+        <result property="payTime"    column="pay_time"    />
+        <result property="gatewayOrderId"    column="gateway_order_id"    />
+        <result property="addTime"    column="add_time"    />
+        <result property="lgOrderCode"    column="lg_order_code"    />
+        <result property="callbackTime"    column="callback_time"    />
+        <result property="vat"    column="vat"    />
+        <result property="customsTax"    column="customs_tax"    />
+        <result property="consumptionTax"    column="consumption_tax"    />
+        <result property="orderStatusRemark"    column="order_status_remark"    />
+        <result property="callbackMallStatus"    column="callback_mall_status"    />
+        <result property="callbackMallStatusValue"    column="callback_mall_status_value"    />
+        <result property="allianceFreightAmount"    column="alliance_freight_amount"    />
+        <result property="appointExpress"    column="appoint_express"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="supplierName"    column="supplier_name"    />
+        <result property="sellerName"    column="seller_name"    />
+        <result property="sellerWithdrawalStatus" column="seller_withdrawal_status" />
+        <result property="supplierWithdrawalStatus" column="supplier_withdrawal_status" />
+        <result property="sellerWithdrawalAmount" column="seller_withdrawal_amount" />
+        <result property="supplierWithdrawalAmount" column="supplier_withdrawal_amount" />
+    </resultMap>
+    <select id="querySupplierWithdrawalOrderInfo" parameterType="Long" resultMap="OrderInfoResult">
+        select t2.*
+        from supplier_withdrawal_order_ref t1 left join order_info t2 on t1.order_info_id = t2.id
+        where t1.supplier_withdrawal_id = #{supplierWithdrawalId}
+    </select>
+</mapper>

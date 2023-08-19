@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.DataTableMapper">
+
+    <resultMap type="GoodsSaleVo" id="GoodsSaleResult">
+        <result property="goodsId"    column="goods_id"    />
+        <result property="goodsOutCode"    column="goods_out_code"    />
+        <result property="goodsName"    column="goods_name"    />
+        <result property="goodsBarcode"    column="goods_barcode"    />
+        <result property="stockNum"    column="stock_num"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="price"    column="price"    />
+        <result property="orgIncome"    column="org_income"    />
+    </resultMap>
+
+    <select id="getGoodsSaleVoList" resultMap="GoodsSaleResult" parameterType="DataTableReqVo">
+        select
+            t1.id as goods_id, t1.goods_out_code, t1.goods_name, t1.goods_barcode,
+            t1.stock_num, item.quantity, t1.cost_price as price, item.price as org_income
+        from
+            order_item item left join order_info o on item.order_id = o.id
+            left join goods_info t1 on item.goods_id = t1.id
+            <if test="sellerId != null and sellerId != '' and sellerOnshelfStatus != null">
+                left join seller_goods_shelf t4 on t1.id = t4.goods_id and t4.seller_id = #{sellerId}
+            </if>
+            <if test="hasPic != null and hasPic != 0">
+                left join (select goods_id, count(*) as hasPic  from goods_pic_info group by goods_id ) t6
+                on t1.goods_barcode = t6.goods_id
+            </if>
+        <where>
+            <if test="sellerId != null and sellerId !=''">
+                and item.seller_id = #{sellerId}
+            </if>
+            <if test="supplierId != null and supplierId !=''">
+                and item.supplier_id = #{supplierId}
+            </if>
+
+            <if test="storehouseId != null  and storehouseId != ''"> and t1.storehouse_id = #{storehouseId}</if>
+            <if test="goodsCode != null  and goodsCode != ''"> and t1.goods_code = #{goodsCode}</if>
+            <if test="goodsOutCode != null  and goodsOutCode != ''"> and t1.goods_out_code = #{goodsOutCode}</if>
+            <if test="goodsName != null  and goodsName != ''"> and t1.goods_name like concat('%', #{goodsName}, '%')</if>
+            <if test="goodsBarcode != null  and goodsBarcode != ''"> and t1.goods_barcode = #{goodsBarcode}</if>
+            <if test="goodsBrand != null  and goodsBrand != ''"> and t1.goods_brand = #{goodsBrand}</if>
+            <if test="goodsClassification != null  and goodsClassification != ''"> and t1.goods_classification = #{goodsClassification}</if>
+            <if test="goodsUnit != null  and goodsUnit != ''"> and t1.goods_unit = #{goodsUnit}</if>
+            <if test="goodsWeight != null "> and t1.goods_weight = #{goodsWeight}</if>
+            <if test="costPrice != null "> and t1.cost_price = #{costPrice}</if>
+            <if test="taxRate != null "> and t1.tax_rate = #{taxRate}</if>
+            <if test="stockNum != null "> and t1.stock_num = #{stockNum}</if>
+            <if test="stockLockNum != null "> and t1.stock_lock_num = #{stockLockNum}</if>
+            <if test="dockingGoodsId != null  and dockingGoodsId != ''"> and t1.docking_goods_id = #{dockingGoodsId}</if>
+            <if test="hsCode != null  and hsCode != ''"> and t1.hs_code = #{hsCode}</if>
+            <if test="jdGuidancePrice != null "> and t1.jd_guidance_price = #{jdGuidancePrice}</if>
+            <if test="tmGuidancePrice != null "> and t1.tm_guidance_price = #{tmGuidancePrice}</if>
+            <if test="wyGuidancePrice != null "> and t1.wy_guidance_price = #{wyGuidancePrice}</if>
+            <if test="msrp != null "> and t1.msrp = #{msrp}</if>
+            <if test="nakedPrice != null "> and t1.naked_price = #{nakedPrice}</if>
+            <if test="onShelfStatus != null "> and t1.on_shelf_status = #{onShelfStatus}</if>
+            <if test="freightRenewalAmount != null "> and t1.freight_renewal_amount = #{freightRenewalAmount}</if>
+            <if test="grossWeight != null "> and t1.gross_weight = #{grossWeight}</if>
+            <if test="freightAmount != null "> and t1.freight_amount = #{freightAmount}</if>
+            <if test="finalFreightAmount != null "> and t1.final_freight_amount = #{finalFreightAmount}</if>
+            <if test="auditStatus != null "> and t1.audit_status = #{auditStatus}</if>
+            <if test="recommend != null "> and t1.recommend = #{recommend}</if>
+
+            <if test="ifPackage != null "> and t1.if_package = #{ifPackage}</if>
+            <if test="ifBuildByOneself != null "> and t1.if_build_by_oneself = #{ifBuildByOneself}</if>
+            <if test="barCodeList != null "> and t1.bar_code_list = #{barCodeList}</if>
+            <if test="numberList != null "> and t1.number_list = #{numberList}</if>
+            <if test="vatRate != null "> and t1.vat_rate = #{vatRate}</if>
+            <if test="tariffRate != null "> and t1.tariff_rate = #{tariffRate}</if>
+            <if test="exciseTaxRate != null "> and t1.excise_tax_rate = #{exciseTaxRate}</if>
+            <if test="delFlag != null "> and t1.del_flag = #{delFlag}</if>
+            <if test="delFlag == null "> and t1.del_flag = 1 </if>
+            <if test="platOnShelf != null "> and t1.plat_on_shelf = #{platOnShelf} </if>
+            <if test="picVersion != null "> and t1.pic_version = #{picVersion} </if>
+            <if test="stockNumStart != null"> and t1.stock_num &gt;= #{stockNumStart}</if>
+            <if test="stockNumEnd != null"> and t1.stock_num &lt;= #{stockNumEnd}</if>
+            <if test="costPriceStart != null"> and t1.cost_price &gt;= #{costPriceStart}</if>
+            <if test="costPriceEnd != null"> and t1.cost_price &lt;= #{costPriceEnd}</if>
+            <if test="sellerId != null and sellerId != '' and sellerOnshelfStatus != null">
+                <if test="sellerOnshelfStatus == 0">
+                    and t4.id is null
+                </if>
+                <if test="sellerOnshelfStatus == 1">
+                    and t4.id is not null
+                </if>
+            </if>
+            <if test="hasPic != null and hasPic != 0">
+                <if test="hasPic == 1">
+                    and t6.hasPic > 0
+                </if>
+                <if test="hasPic == 2">
+                    and t6.hasPic is null
+                </if>
+            </if>
+        </where>
+        order by item.create_time desc
+    </select>
+
+    <select id="getOrderCount" resultType="long">
+        select count(*) from order_info
+        <where>
+            <if test="req.sellerId != null and req.sellerId !=''">
+                and seller_id = #{req.sellerId}
+            </if>
+            <if test="req.supplierId != null and req.supplierId !=''">
+                and supplier_id = #{req.supplierId}
+            </if>
+        </where>
+    </select>
+
+    <select id="getOrderAmountCount" resultType="decimal">
+        select ifnull(sum(real_total_amount) , 0) from order_info
+        <where>
+            <if test="req.sellerId != null and req.sellerId !=''">
+                and seller_id = #{req.sellerId}
+            </if>
+            <if test="req.supplierId != null and req.supplierId !=''">
+                and supplier_id = #{req.supplierId}
+            </if>
+        </where>
+    </select>
+
+    <select id="getSaleAmount7Days" resultType="SaleAmountVo">
+        select
+        a.click_date as saleDate,
+        ifnull(b.saleAmount,0) as saleAmount,
+        ifnull(b.saleCount, 0) as saleCount
+        from (
+        SELECT curdate() as click_date
+        union all
+        SELECT date_sub(curdate(), interval 1 day) as click_date
+        union all
+        SELECT date_sub(curdate(), interval 2 day) as click_date
+        union all
+        SELECT date_sub(curdate(), interval 3 day) as click_date
+        union all
+        SELECT date_sub(curdate(), interval 4 day) as click_date
+        union all
+        SELECT date_sub(curdate(), interval 5 day) as click_date
+        union all
+        SELECT date_sub(curdate(), interval 6 day) as click_date
+        ) a left join (
+        SELECT
+        DATE_FORMAT(pay_time,"%Y-%m-%d") as saleDate,
+        sum(real_total_amount) as saleAmount,
+        count(*) as saleCount
+        FROM order_info
+        where DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(pay_time)
+        <if test="req.sellerId != null and req.sellerId !=''">
+            and seller_id = #{req.sellerId}
+        </if>
+        <if test="req.supplierId != null and req.supplierId !=''">
+            and supplier_id = #{req.supplierId}
+        </if>
+        GROUP BY DATE_FORMAT(pay_time,"%Y-%m-%d")
+        ORDER BY DATE_FORMAT(pay_time,"%Y-%m-%d") DESC
+        ) b on a.click_date = b.saleDate ORDER BY a.click_date asc
+    </select>
+
+    <select id="getSellerSalePercent" resultType="SellerSalePercent">
+        select
+            t1.seller_id as sellerId,
+            t2.comp_name as sellerName,
+            ifnull(sum(real_total_amount), 0) as saleAmount
+        from
+             order_info t1 left join seller_info t2  on t1.seller_id = t2.id
+        group by t1.seller_id
+        order by ifnull(sum(real_total_amount), 0) desc
+    </select>
+
+    <select id="getOrderCountRank" resultType="OrderCountRank">
+        select t1.seller_id as sellerId, t2.comp_name as sellerName, count(*) as orderCount
+        from order_info t1 left join seller_info t2 on t1.seller_id = t2.id
+        group by t1.seller_id
+        order by count(*) desc
+    </select>
+
+    <select id="getAmountCountRank" resultType="AmountCountRank">
+        select t1.seller_id as sellerId, t2.comp_name as sellerName, ifnull(sum(t1.real_total_amount), 0) as amountCount
+        from order_info t1 left join seller_info t2 on t1.seller_id = t2.id
+        group by t1.seller_id
+        order by sum(t1.real_total_amount) desc
+    </select>
+
+</mapper>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.GoodsPicInfoMapper">
+    
+    <resultMap type="GoodsPicInfo" id="GoodsPicInfoResult">
+        <result property="id"    column="id"    />
+        <result property="goodsId"    column="goods_id"    />
+        <result property="picUrl"    column="pic_url"    />
+        <result property="picType"    column="pic_type"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="picVersion" column="pic_version" />
+        <result property="sortNo" column="sort_no" />
+    </resultMap>
+
+    <sql id="selectGoodsPicInfoVo">
+        select id, goods_id, pic_url, pic_type, create_by, create_time, update_by, update_time, del_flag, pic_version, sort_no from goods_pic_info
+    </sql>
+
+    <select id="selectGoodsPicInfoList" parameterType="GoodsPicInfo" resultMap="GoodsPicInfoResult">
+        <include refid="selectGoodsPicInfoVo"/>
+        <where>
+            del_flag = 1
+            <if test="goodsId != null  and goodsId != ''"> and goods_id = #{goodsId}</if>
+            <if test="picUrl != null  and picUrl != ''"> and pic_url = #{picUrl}</if>
+            <if test="picType != null  and picType != ''"> and pic_type = #{picType}</if>
+            <if test="picVersion != null  and picVersion != ''"> and pic_version = #{picVersion}</if>
+        </where>
+        order by pic_type, sort_no + 0 asc
+    </select>
+    
+    <select id="selectGoodsPicInfoById" parameterType="Long" resultMap="GoodsPicInfoResult">
+        <include refid="selectGoodsPicInfoVo"/>
+        where id = #{id} and del_flag = 1
+    </select>
+        
+    <insert id="insertGoodsPicInfo" parameterType="GoodsPicInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into goods_pic_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">goods_id,</if>
+            <if test="picUrl != null">pic_url,</if>
+            <if test="picType != null">pic_type,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="picVersion != null">pic_version,</if>
+            <if test="sortNo != null">sort_no,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">#{goodsId},</if>
+            <if test="picUrl != null">#{picUrl},</if>
+            <if test="picType != null">#{picType},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="picVersion != null">#{picVersion},</if>
+            <if test="sortNo != null">#{sortNo},</if>
+         </trim>
+    </insert>
+
+    <update id="updateGoodsPicInfo" parameterType="GoodsPicInfo">
+        update goods_pic_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="goodsId != null">goods_id = #{goodsId},</if>
+            <if test="picUrl != null">pic_url = #{picUrl},</if>
+            <if test="picType != null">pic_type = #{picType},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="picVersion != null">pic_version = #{picVersion},</if>
+            <if test="sortNo != null">sort_no = #{sortNo},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteGoodsPicInfoById" parameterType="Long">
+        delete from goods_pic_info where id = #{id}
+    </delete>
+
+    <delete id="deleteGoodsPicInfoByGoodsId" parameterType="String">
+        delete from goods_pic_info where goods_id = #{goodsId}
+    </delete>
+
+    <delete id="deleteGoodsPicInfo">
+        delete from goods_pic_info where goods_id = #{goodsId} and pic_version = #{picVersion}
+    </delete>
+
+    <delete id="deleteGoodsPicInfoByIds" parameterType="String">
+        delete from goods_pic_info  where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getGoodsMainPic" resultMap="GoodsPicInfoResult" parameterType="string">
+        select * from goods_pic_info where goods_id = #{goodsBarcode} and pic_type = '1' and del_flag = 1 order by sort_no + 0  asc limit 1
+    </select>
+
+    <delete id="deleteByBarcodeAndPicversion" >
+        delete from goods_pic_info where goods_id = #{barcode} and pic_version = #{picversion}
+    </delete>
+
+    <select id="hisPicInfoList" resultMap="GoodsPicInfoResult">
+        select * from goods_pic_info where pic_url like 'https://zycxt%' or pic_url like 'http://106%' order by id asc limit 500
+    </select>
+
+    <select id="hisPicInfoList2" resultMap="GoodsPicInfoResult">
+        select * from goods_pic_info where pic_url like 'https://zycxt%' or pic_url like 'http://106%' order by id desc limit 500
+    </select>
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SellerServicePlanMapper">
+    
+    <resultMap type="SellerServicePlan" id="SellerServicePlanResult">
+        <result property="id"    column="id"    />
+        <result property="compId"    column="comp_id"    />
+        <result property="servicePlan"    column="service_plan"    />
+        <result property="servicePlanName"    column="service_plan_name"    />
+        <result property="ifNews"    column="if_news"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="sellerName"       column="seller_name"    />
+    </resultMap>
+
+    <sql id="selectSellerServicePlanVo">
+        select id, comp_id, service_plan, service_plan_name, if_news, create_by, create_time, update_by, update_time from seller_service_plan
+    </sql>
+
+    <sql id="selectSellerServicePlanListVo">
+        select
+            t1.id, t1.comp_id, t1.service_plan, t1.service_plan_name, t1.if_news,
+            t1.create_by, t1.create_time, t1.update_by, t1.update_time, t2.comp_name seller_name
+        from
+            seller_service_plan t1
+            left join seller_info t2 on t1.comp_id = t2.id
+    </sql>
+
+    <select id="selectSellerServicePlanList" parameterType="SellerServicePlan" resultMap="SellerServicePlanResult">
+        <include refid="selectSellerServicePlanListVo"/>
+        <where>  
+            <if test="compId != null  and compId != ''"> and t1.comp_id = #{compId}</if>
+            <if test="servicePlan != null  and servicePlan != ''"> and t1.service_plan = #{servicePlan}</if>
+            <if test="servicePlanName != null  and servicePlanName != ''"> and t1.service_plan_name like concat('%', #{servicePlanName}, '%')</if>
+            <if test="ifNews != null "> and t1.if_news = #{ifNews}</if>
+        </where>
+        order by t1.create_time desc
+    </select>
+    
+    <select id="selectSellerServicePlanById" parameterType="Long" resultMap="SellerServicePlanResult">
+        <include refid="selectSellerServicePlanVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSellerServicePlan" parameterType="SellerServicePlan" useGeneratedKeys="true" keyProperty="id">
+        insert into seller_service_plan
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="compId != null">comp_id,</if>
+            <if test="servicePlan != null">service_plan,</if>
+            <if test="servicePlanName != null">service_plan_name,</if>
+            <if test="ifNews != null">if_news,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="compId != null">#{compId},</if>
+            <if test="servicePlan != null">#{servicePlan},</if>
+            <if test="servicePlanName != null">#{servicePlanName},</if>
+            <if test="ifNews != null">#{ifNews},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSellerServicePlan" parameterType="SellerServicePlan">
+        update seller_service_plan
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="compId != null">comp_id = #{compId},</if>
+            <if test="servicePlan != null">service_plan = #{servicePlan},</if>
+            <if test="servicePlanName != null">service_plan_name = #{servicePlanName},</if>
+            <if test="ifNews != null">if_news = #{ifNews},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSellerServicePlanById" parameterType="Long">
+        delete from seller_service_plan where id = #{id}
+    </delete>
+
+    <delete id="deleteSellerServicePlanByIds" parameterType="String">
+        delete from seller_service_plan where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="updateSellerServicePlanOverdueByCompId" parameterType="String">
+        update seller_service_plan set if_news = 0 where comp_id = #{compId}
+    </update>
+
+    <select id="queryNewSellerServicePlan" parameterType="string" resultMap="SellerServicePlanResult">
+        <include refid="selectSellerServicePlanVo"/>
+        where comp_id = #{compId} and if_news = 1 limit 1
+    </select>
+</mapper>

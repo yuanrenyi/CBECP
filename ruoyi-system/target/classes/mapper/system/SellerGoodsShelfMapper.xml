@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SellerGoodsShelfMapper">
+
+    <resultMap type="SellerGoodsShelf" id="SellerGoodsShelfResult">
+        <result property="id"    column="id"    />
+        <result property="sellerId"    column="seller_id"    />
+        <result property="sellerName"    column="seller_name"    />
+        <result property="goodsId"    column="goods_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+    </resultMap>
+
+    <sql id="selectSellerGoodsShelfVo">
+        select id, seller_id, seller_name, goods_id, create_time, create_by from seller_goods_shelf
+    </sql>
+
+    <select id="selectSellerGoodsShelfList" parameterType="SellerGoodsShelf" resultMap="SellerGoodsShelfResult">
+        <include refid="selectSellerGoodsShelfVo"/>
+        <where>
+            <if test="sellerId != null  and sellerId != ''"> and seller_id = #{sellerId}</if>
+            <if test="sellerName != null  and sellerName != ''"> and seller_name like concat('%', #{sellerName}, '%')</if>
+            <if test="goodsId != null  and goodsId != ''"> and goods_id = #{goodsId}</if>
+        </where>
+    </select>
+
+    <select id="selectSellerGoodsShelfById" parameterType="Long" resultMap="SellerGoodsShelfResult">
+        <include refid="selectSellerGoodsShelfVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSellerGoodsShelf" parameterType="SellerGoodsShelf">
+        insert into seller_goods_shelf
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="sellerId != null">seller_id,</if>
+            <if test="sellerName != null">seller_name,</if>
+            <if test="goodsId != null">goods_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="sellerId != null">#{sellerId},</if>
+            <if test="sellerName != null">#{sellerName},</if>
+            <if test="goodsId != null">#{goodsId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSellerGoodsShelf" parameterType="SellerGoodsShelf">
+        update seller_goods_shelf
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sellerId != null">seller_id = #{sellerId},</if>
+            <if test="sellerName != null">seller_name = #{sellerName},</if>
+            <if test="goodsId != null">goods_id = #{goodsId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSellerGoodsShelfById" parameterType="Long">
+        delete from seller_goods_shelf where id = #{id}
+    </delete>
+
+    <delete id="deleteSellerGoodsShelfByIds" parameterType="String">
+        delete from seller_goods_shelf where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByGoodsAndSeller" parameterType="string">
+        delete from seller_goods_shelf where goods_id = #{goodsId} and seller_id = #{sellerId}
+    </delete>
+
+    <resultMap type="OnplatSellerInfoVo" id="OnplatSeller">
+        <result property="sellerId"    column="seller_id"    />
+        <result property="sellerName"    column="seller_name"    />
+    </resultMap>
+    <select id="selectOnplatSellerInfo" parameterType="string" resultMap="OnplatSeller">
+        select seller_id, seller_name from seller_goods_shelf where goods_id = #{goodsId}
+    </select>
+</mapper>

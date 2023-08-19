@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SellerInfoMapper">
+    
+    <resultMap type="SellerInfo" id="SellerInfoResult">
+        <result property="id"    column="id"    />
+        <result property="compName"    column="comp_name"    />
+        <result property="pmName"    column="pm_name"    />
+        <result property="pmPhone"    column="pm_phone"    />
+        <result property="wechatGroup"    column="wechat_group"    />
+        <result property="compProvince"    column="comp_province"    />
+        <result property="compCity"    column="comp_city"    />
+        <result property="compScale"    column="comp_scale"    />
+        <result property="ifMeeting"    column="if_meeting"    />
+        <result property="meetingTime"    column="meeting_time"    />
+        <result property="trainer"    column="trainer"    />
+        <result property="trainNum"    column="train_num"    />
+        <result property="ifWechatMiniapp"    column="if_wechat_miniapp"    />
+        <result property="cooperationMode"    column="cooperation_mode"    />
+        <result property="meetingCondition"    column="meeting_condition"    />
+        <result property="contractProgress"    column="contract_progress"    />
+        <result property="paymentTime"    column="payment_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="userCode"    column="user_code"    />
+        <result property="enterpriseName"    column="enterprise_name"    />
+        <result property="customsCode"    column="customs_code"    />
+        <result property="cnCode"    column="cn_code"    />
+        <result property="encryptUrl"    column="encrypt_url"    />
+        <result property="msid"    column="msid"    />
+        <result property="wxmchid"    column="wxmchid"    />
+        <result property="customName"    column="custom_name"    />
+        <result property="compProvinceName"    column="comp_province_name"    />
+        <result property="compCityName"    column="comp_city_name"    />
+        <result property="ifAgent"    column="if_agent"    />
+        <result property="proportion"    column="proportion"    />
+        <result property="parentAgentId"    column="parent_agent_id"    />
+        <result property="parentAgentName"    column="parent_agent_name"    />
+    </resultMap>
+
+    <sql id="selectSellerInfoVo">
+        select
+            id, comp_name, pm_name, pm_phone, wechat_group, comp_province, comp_city,
+            comp_scale, if_meeting, meeting_time, trainer, train_num, if_wechat_miniapp,
+            cooperation_mode, meeting_condition, contract_progress, payment_time, remark,
+            create_by, create_time, update_by, update_time, user_code, enterprise_name,
+            customs_code, cn_code, encrypt_url, msid, wxmchid, custom_name, comp_province_name,
+            comp_city_name, if_agent, proportion, parent_agent_id, parent_agent_name
+        from
+            seller_info
+    </sql>
+
+    <select id="selectSellerInfoList" parameterType="SellerInfo" resultMap="SellerInfoResult">
+        <include refid="selectSellerInfoVo"/>
+        <where>  
+            <if test="compName != null  and compName != ''"> and comp_name like concat('%', #{compName}, '%')</if>
+            <if test="pmName != null  and pmName != ''"> and pm_name like concat('%', #{pmName}, '%')</if>
+            <if test="pmPhone != null  and pmPhone != ''"> and pm_phone = #{pmPhone}</if>
+            <if test="wechatGroup != null  and wechatGroup != ''"> and wechat_group = #{wechatGroup}</if>
+            <if test="compProvince != null  and compProvince != ''"> and comp_province = #{compProvince}</if>
+            <if test="compCity != null  and compCity != ''"> and comp_city = #{compCity}</if>
+            <if test="compScale != null  and compScale != ''"> and comp_scale = #{compScale}</if>
+            <if test="ifMeeting != null "> and if_meeting = #{ifMeeting}</if>
+            <if test="meetingTime != null "> and meeting_time = #{meetingTime}</if>
+            <if test="trainer != null  and trainer != ''"> and trainer = #{trainer}</if>
+            <if test="trainNum != null "> and train_num = #{trainNum}</if>
+            <if test="ifWechatMiniapp != null "> and if_wechat_miniapp = #{ifWechatMiniapp}</if>
+            <if test="cooperationMode != null  and cooperationMode != ''"> and cooperation_mode = #{cooperationMode}</if>
+            <if test="meetingCondition != null  and meetingCondition != ''"> and meeting_condition = #{meetingCondition}</if>
+            <if test="contractProgress != null  and contractProgress != ''"> and contract_progress = #{contractProgress}</if>
+            <if test="paymentTime != null "> and payment_time = #{paymentTime}</if>
+            <if test="userCode != null "> and user_code = #{userCode}</if>
+            <if test="enterpriseName != null "> and enterprise_name = #{enterpriseName}</if>
+            <if test="customsCode != null "> and customs_code = #{customsCode}</if>
+            <if test="cnCode != null "> and cn_code = #{cnCode}</if>
+            <if test="encryptUrl != null "> and encrypt_url = #{encryptUrl}</if>
+            <if test="msid != null "> and msid = #{msid}</if>
+            <if test="wxmchid != null "> and wxmchid = #{wxmchid}</if>
+            <if test="customName != null "> and custom_name like concat('%', #{customName}, '%')</if>
+            <if test="ifAgent != null "> and if_agent = #{ifAgent}</if>
+            <if test="parentAgentId != null "> and parent_agent_id = #{parentAgentId}</if>
+            <if test="parentAgentName != null "> and parent_agent_name like concat('%', #{parentAgentName}, '%')</if>
+        </where>
+
+        order by create_time desc
+    </select>
+
+    <select id="selectAgentInfoList" resultMap="SellerInfoResult">
+        <include refid="selectSellerInfoVo"/>
+        where
+            if_agent = 1
+            <if test="compName != null  and compName != ''"> and comp_name like concat('%', #{compName}, '%')</if>
+            <if test="pmName != null  and pmName != ''"> and pm_name like concat('%', #{pmName}, '%')</if>
+            <if test="pmPhone != null  and pmPhone != ''"> and pm_phone = #{pmPhone}</if>
+            <if test="wechatGroup != null  and wechatGroup != ''"> and wechat_group = #{wechatGroup}</if>
+            <if test="compProvince != null  and compProvince != ''"> and comp_province = #{compProvince}</if>
+            <if test="compCity != null  and compCity != ''"> and comp_city = #{compCity}</if>
+            <if test="compScale != null  and compScale != ''"> and comp_scale = #{compScale}</if>
+            <if test="ifMeeting != null "> and if_meeting = #{ifMeeting}</if>
+            <if test="meetingTime != null "> and meeting_time = #{meetingTime}</if>
+            <if test="trainer != null  and trainer != ''"> and trainer = #{trainer}</if>
+            <if test="trainNum != null "> and train_num = #{trainNum}</if>
+            <if test="ifWechatMiniapp != null "> and if_wechat_miniapp = #{ifWechatMiniapp}</if>
+            <if test="cooperationMode != null  and cooperationMode != ''"> and cooperation_mode = #{cooperationMode}</if>
+            <if test="meetingCondition != null  and meetingCondition != ''"> and meeting_condition = #{meetingCondition}</if>
+            <if test="contractProgress != null  and contractProgress != ''"> and contract_progress = #{contractProgress}</if>
+            <if test="paymentTime != null "> and payment_time = #{paymentTime}</if>
+            <if test="userCode != null "> and user_code = #{userCode}</if>
+            <if test="enterpriseName != null "> and enterprise_name = #{enterpriseName}</if>
+            <if test="customsCode != null "> and customs_code = #{customsCode}</if>
+            <if test="cnCode != null "> and cn_code = #{cnCode}</if>
+            <if test="encryptUrl != null "> and encrypt_url = #{encryptUrl}</if>
+            <if test="msid != null "> and msid = #{msid}</if>
+            <if test="wxmchid != null "> and wxmchid = #{wxmchid}</if>
+            <if test="customName != null "> and custom_name like concat('%', #{customName}, '%')</if>
+            <if test="ifAgent != null "> and if_agent = #{ifAgent}</if>
+            <if test="parentAgentId != null "> and parent_agent_id = #{parentAgentId}</if>
+            <if test="parentAgentName != null "> and parent_agent_name like concat('%', #{parentAgentName}, '%')</if>
+        order by create_time desc
+    </select>
+    
+    <select id="selectSellerInfoById" parameterType="String" resultMap="SellerInfoResult">
+        <include refid="selectSellerInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSellerInfo" parameterType="SellerInfo">
+        insert into seller_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="compName != null">comp_name,</if>
+            <if test="pmName != null">pm_name,</if>
+            <if test="pmPhone != null">pm_phone,</if>
+            <if test="wechatGroup != null">wechat_group,</if>
+            <if test="compProvince != null">comp_province,</if>
+            <if test="compCity != null">comp_city,</if>
+            <if test="compScale != null">comp_scale,</if>
+            <if test="ifMeeting != null">if_meeting,</if>
+            <if test="meetingTime != null">meeting_time,</if>
+            <if test="trainer != null">trainer,</if>
+            <if test="trainNum != null">train_num,</if>
+            <if test="ifWechatMiniapp != null">if_wechat_miniapp,</if>
+            <if test="cooperationMode != null">cooperation_mode,</if>
+            <if test="meetingCondition != null">meeting_condition,</if>
+            <if test="contractProgress != null">contract_progress,</if>
+            <if test="paymentTime != null">payment_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="userCode != null">user_code,</if>
+            <if test="enterpriseName != null">enterprise_name,</if>
+            <if test="customsCode != null">customs_code,</if>
+            <if test="cnCode != null">cn_code,</if>
+            <if test="encryptUrl != null">encrypt_url,</if>
+            <if test="msid != null">msid,</if>
+            <if test="wxmchid != null">wxmchid,</if>
+            <if test="customName != null">custom_name,</if>
+            <if test="compProvinceName != null">comp_province_name,</if>
+            <if test="compCityName != null">comp_city_name,</if>
+            <if test="ifAgent != null">if_agent,</if>
+            <if test="proportion != null">proportion,</if>
+            <if test="parentAgentId != null">parent_agent_id,</if>
+            <if test="parentAgentName != null">parent_agent_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="compName != null">#{compName},</if>
+            <if test="pmName != null">#{pmName},</if>
+            <if test="pmPhone != null">#{pmPhone},</if>
+            <if test="wechatGroup != null">#{wechatGroup},</if>
+            <if test="compProvince != null">#{compProvince},</if>
+            <if test="compCity != null">#{compCity},</if>
+            <if test="compScale != null">#{compScale},</if>
+            <if test="ifMeeting != null">#{ifMeeting},</if>
+            <if test="meetingTime != null">#{meetingTime},</if>
+            <if test="trainer != null">#{trainer},</if>
+            <if test="trainNum != null">#{trainNum},</if>
+            <if test="ifWechatMiniapp != null">#{ifWechatMiniapp},</if>
+            <if test="cooperationMode != null">#{cooperationMode},</if>
+            <if test="meetingCondition != null">#{meetingCondition},</if>
+            <if test="contractProgress != null">#{contractProgress},</if>
+            <if test="paymentTime != null">#{paymentTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="userCode != null">#{userCode},</if>
+            <if test="enterpriseName != null">#{enterpriseName},</if>
+            <if test="customsCode != null">#{customsCode},</if>
+            <if test="cnCode != null">#{cnCode},</if>
+            <if test="encryptUrl != null">#{encryptUrl},</if>
+            <if test="msid != null">#{msid},</if>
+            <if test="wxmchid != null">#{wxmchid},</if>
+            <if test="customName != null">#{customName},</if>
+            <if test="compProvinceName != null">#{compProvinceName},</if>
+            <if test="compCityName != null">#{compCityName},</if>
+            <if test="ifAgent != null">#{ifAgent},</if>
+            <if test="proportion != null">#{proportion},</if>
+            <if test="parentAgentId != null">#{parentAgentId},</if>
+            <if test="parentAgentName != null">#{parentAgentName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSellerInfo" parameterType="SellerInfo">
+        update seller_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="compName != null">comp_name = #{compName},</if>
+            <if test="pmName != null">pm_name = #{pmName},</if>
+            <if test="pmPhone != null">pm_phone = #{pmPhone},</if>
+            <if test="wechatGroup != null">wechat_group = #{wechatGroup},</if>
+            <if test="compProvince != null">comp_province = #{compProvince},</if>
+            <if test="compCity != null">comp_city = #{compCity},</if>
+            <if test="compScale != null">comp_scale = #{compScale},</if>
+            <if test="ifMeeting != null">if_meeting = #{ifMeeting},</if>
+            <if test="meetingTime != null">meeting_time = #{meetingTime},</if>
+            <if test="trainer != null">trainer = #{trainer},</if>
+            <if test="trainNum != null">train_num = #{trainNum},</if>
+            <if test="ifWechatMiniapp != null">if_wechat_miniapp = #{ifWechatMiniapp},</if>
+            <if test="cooperationMode != null">cooperation_mode = #{cooperationMode},</if>
+            <if test="meetingCondition != null">meeting_condition = #{meetingCondition},</if>
+            <if test="contractProgress != null">contract_progress = #{contractProgress},</if>
+            <if test="paymentTime != null">payment_time = #{paymentTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+
+            <if test="userCode != null">user_code = #{userCode},</if>
+            <if test="enterpriseName != null">enterprise_name = #{enterpriseName},</if>
+            <if test="customsCode != null">customs_code = #{customsCode},</if>
+            <if test="cnCode != null">cn_code = #{cnCode},</if>
+            <if test="encryptUrl != null">encrypt_url = #{encryptUrl},</if>
+            <if test="msid != null">msid = #{msid},</if>
+            <if test="wxmchid != null">wxmchid = #{wxmchid},</if>
+            <if test="customName != null">custom_name = #{customName},</if>
+
+            <if test="compProvinceName != null">comp_province_name = #{compProvinceName},</if>
+            <if test="compCityName != null">comp_city_name = #{compCityName},</if>
+
+            <if test="ifAgent != null">if_agent = #{ifAgent},</if>
+            <if test="proportion != null">proportion = #{proportion},</if>
+            <if test="parentAgentId != null">parent_agent_id = #{parentAgentId},</if>
+            <if test="parentAgentName != null">parent_agent_name = #{parentAgentName},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSellerInfoById" parameterType="String">
+        delete from seller_info where id = #{id}
+    </delete>
+
+    <delete id="deleteSellerInfoByIds" parameterType="String">
+        delete from seller_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

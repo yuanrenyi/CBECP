@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.UserCompanyMapper">
+
+    <resultMap type="UserCompany" id="UserCompanyResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="companyType"    column="company_type"    />
+        <result property="companyId"    column="company_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="companyName"    column="company_name"    />
+    </resultMap>
+
+    <sql id="selectUserCompanyVo">
+        select id, user_id, company_type, company_id, create_by, create_time, update_by, update_time, company_name from user_company
+    </sql>
+
+    <select id="selectUserCompanyList" parameterType="UserCompany" resultMap="UserCompanyResult">
+        <include refid="selectUserCompanyVo"/>
+        <where>
+            <if test="userId != null  and userId != ''"> and user_id = #{userId}</if>
+            <if test="companyType != null "> and company_type = #{companyType}</if>
+            <if test="companyId != null  and companyId != ''"> and company_id = #{companyId}</if>
+            <if test="companyName != null  and companyName != ''"> and company_name like concat('%', #{companyName}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectUserCompanyById" parameterType="Long" resultMap="UserCompanyResult">
+        <include refid="selectUserCompanyVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertUserCompany" parameterType="UserCompany" useGeneratedKeys="true" keyProperty="id">
+        insert into user_company
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="companyType != null">company_type,</if>
+            <if test="companyId != null">company_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="companyName != null">company_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="companyType != null">#{companyType},</if>
+            <if test="companyId != null">#{companyId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="companyName != null">#{companyName},</if>
+        </trim>
+    </insert>
+
+    <update id="updateUserCompany" parameterType="UserCompany">
+        update user_company
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="companyType != null">company_type = #{companyType},</if>
+            <if test="companyId != null">company_id = #{companyId},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="companyName != null">company_name = #{companyName},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUserCompanyById" parameterType="Long">
+        delete from user_company where id = #{id}
+    </delete>
+
+    <delete id="deleteUserCompanyByIds" parameterType="String">
+        delete from user_company where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="queryUserCompanyByUserId" parameterType="Long" resultMap="UserCompanyResult">
+        <include refid="selectUserCompanyVo"/>
+        where user_id = #{userId} limit 1
+    </select>
+</mapper>

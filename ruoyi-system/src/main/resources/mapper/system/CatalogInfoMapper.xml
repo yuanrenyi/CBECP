@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CatalogInfoMapper">
+
+    <resultMap type="CatalogInfo" id="CatalogInfoResult">
+        <result property="id"    column="id"    />
+        <result property="catalogName"    column="catalog_name"    />
+        <result property="catalogLevel"    column="catalog_level"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="catalogIcon"    column="catalog_icon"    />
+        <result property="sortNo"    column="sort_no"    />
+    </resultMap>
+
+    <sql id="selectCatalogInfoVo">
+        select id, catalog_name, catalog_level, parent_id, create_by, create_time, update_by, update_time, del_flag, catalog_icon, sort_no from catalog_info
+    </sql>
+
+    <select id="selectCatalogInfoList" parameterType="CatalogInfo" resultMap="CatalogInfoResult">
+        <include refid="selectCatalogInfoVo"/>
+        <where>
+            <if test="catalogName != null  and catalogName != ''"> and catalog_name like concat('%', #{catalogName}, '%')</if>
+            <if test="catalogLevel != null "> and catalog_level = #{catalogLevel}</if>
+            <if test="parentId != null "> and parent_id = #{parentId}</if>
+            <if test="sortNo != null "> and sort_no = #{sortNo}</if>
+        </where>
+        order by sort_no asc
+    </select>
+
+    <select id="selectCatalogInfoById" parameterType="Long" resultMap="CatalogInfoResult">
+        <include refid="selectCatalogInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCatalogInfo" parameterType="CatalogInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into catalog_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="catalogName != null">catalog_name,</if>
+            <if test="catalogLevel != null">catalog_level,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="catalogIcon != null">catalog_icon,</if>
+            <if test="sortNo != null">sort_no,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="catalogName != null">#{catalogName},</if>
+            <if test="catalogLevel != null">#{catalogLevel},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="sortNo != null">#{sortNo},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCatalogInfo" parameterType="CatalogInfo">
+        update catalog_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="catalogName != null">catalog_name = #{catalogName},</if>
+            <if test="catalogLevel != null">catalog_level = #{catalogLevel},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="catalogIcon != null">catalog_icon = #{catalogIcon},</if>
+            <if test="sortNo != null">sort_no = #{sortNo},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCatalogInfoById" parameterType="Long">
+        delete from catalog_info where id = #{id}
+    </delete>
+
+    <delete id="deleteCatalogInfoByIds" parameterType="String">
+        delete from catalog_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

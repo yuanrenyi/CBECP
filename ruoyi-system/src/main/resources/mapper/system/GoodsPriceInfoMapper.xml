@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.GoodsPriceInfoMapper">
+
+    <resultMap type="GoodsPriceInfo" id="GoodsSaleResult">
+        <result property="id"    column="id"    />
+        <result property="goodsId"    column="goods_id"    />
+        <result property="goodsName"    column="goods_name"    />
+        <result property="beforePrice"    column="before_price"    />
+        <result property="afterPrice"    column="after_price"    />
+        <result property="optUserId"    column="opt_user_id"    />
+        <result property="optUserName"    column="opt_user_name"    />
+        <result property="optTime"    column="opt_time"    />
+    </resultMap>
+
+    <select id="queryGoodsPriceInfo7Days" resultMap="GoodsSaleResult" >
+        select
+            t1.*
+        from
+            goods_price_info t1
+        where
+            t1.goods_id = #{vo.goodsId}
+            and DATE_FORMAT(t1.opt_time,'%Y-%m-%d') &gt;= #{vo.beginDate}
+        order by t1.opt_time asc
+    </select>
+
+    <insert id="saveGoodsPriceInfo" parameterType="GoodsPriceInfo">
+        insert into goods_price_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">goods_id,</if>
+            <if test="goodsName != null">goods_name,</if>
+            <if test="beforePrice != null">before_price,</if>
+            <if test="afterPrice != null">after_price,</if>
+            <if test="optUserId != null">opt_user_id,</if>
+            <if test="optUserName != null">opt_user_name,</if>
+            <if test="optTime != null">opt_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">#{goodsId},</if>
+            <if test="goodsName != null">#{goodsName},</if>
+            <if test="beforePrice != null">#{beforePrice},</if>
+            <if test="afterPrice != null">#{afterPrice},</if>
+            <if test="optUserId != null">#{optUserId},</if>
+            <if test="optUserName != null">#{optUserName},</if>
+            <if test="optTime != null">#{optTime},</if>
+        </trim>
+    </insert>
+
+</mapper>

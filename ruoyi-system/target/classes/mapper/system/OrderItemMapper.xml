@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.OrderItemMapper">
+
+    <resultMap type="OrderItem" id="OrderItemResult">
+        <result property="id"    column="id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="storehouseId"    column="storehouse_id"    />
+        <result property="goodsId"    column="goods_id"    />
+        <result property="supplierId"    column="supplier_id"    />
+        <result property="sellerId"    column="seller_id"    />
+        <result property="goodsName"    column="goods_name"    />
+        <result property="goodsCode"    column="goods_code"    />
+        <result property="goodsBarcode"    column="goods_barcode"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="price"    column="price"    />
+        <result property="discountPrice"    column="discount_price"    />
+        <result property="vat"    column="vat"    />
+        <result property="itemLink"    column="item_link"    />
+        <result property="itemId"    column="item_id"    />
+        <result property="taxTotal"    column="tax_total"    />
+        <result property="customsTax"    column="customs_tax"    />
+        <result property="consumptionTax"    column="consumption_tax"    />
+        <result property="barePriceNow"    column="bare_price_now"    />
+        <result property="alliancePrice"    column="alliance_price"    />
+        <result property="openProductCode"    column="open_product_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectOrderItemVo">
+        select id, order_id, storehouse_id, goods_id, supplier_id, seller_id, goods_name, goods_code, goods_barcode, quantity, price, discount_price, vat, item_link, item_id, tax_total, customs_tax, consumption_tax, bare_price_now, alliance_price, open_product_code, create_by, create_time, update_by, update_time from order_item
+    </sql>
+
+    <select id="selectOrderItemList" parameterType="OrderItem" resultMap="OrderItemResult">
+        <include refid="selectOrderItemVo"/>
+        <where>
+            <if test="orderId != null "> and order_id = #{orderId}</if>
+            <if test="storehouseId != null  and storehouseId != ''"> and storehouse_id = #{storehouseId}</if>
+            <if test="goodsId != null  and goodsId != ''"> and goods_id = #{goodsId}</if>
+            <if test="supplierId != null  and supplierId != ''"> and supplier_id = #{supplierId}</if>
+            <if test="sellerId != null  and sellerId != ''"> and seller_id = #{sellerId}</if>
+            <if test="goodsName != null  and goodsName != ''"> and goods_name like concat('%', #{goodsName}, '%')</if>
+            <if test="goodsCode != null  and goodsCode != ''"> and goods_code = #{goodsCode}</if>
+            <if test="goodsBarcode != null  and goodsBarcode != ''"> and goods_barcode = #{goodsBarcode}</if>
+            <if test="quantity != null "> and quantity = #{quantity}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="discountPrice != null "> and discount_price = #{discountPrice}</if>
+            <if test="vat != null "> and vat = #{vat}</if>
+            <if test="itemLink != null  and itemLink != ''"> and item_link = #{itemLink}</if>
+            <if test="itemId != null  and itemId != ''"> and item_id = #{itemId}</if>
+            <if test="taxTotal != null "> and tax_total = #{taxTotal}</if>
+            <if test="customsTax != null "> and customs_tax = #{customsTax}</if>
+            <if test="consumptionTax != null "> and consumption_tax = #{consumptionTax}</if>
+            <if test="barePriceNow != null "> and bare_price_now = #{barePriceNow}</if>
+            <if test="alliancePrice != null "> and alliance_price = #{alliancePrice}</if>
+            <if test="openProductCode != null  and openProductCode != ''"> and open_product_code = #{openProductCode}</if>
+        </where>
+    </select>
+
+    <select id="selectOrderItemById" parameterType="Long" resultMap="OrderItemResult">
+        <include refid="selectOrderItemVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="queryOrderItemByOrderId" parameterType="Long" resultMap="OrderItemResult">
+        <include refid="selectOrderItemVo"/>
+        where order_id = #{orderId}
+    </select>
+
+    <insert id="insertOrderItem" parameterType="OrderItem" useGeneratedKeys="true" keyProperty="id">
+        insert into order_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="storehouseId != null">storehouse_id,</if>
+            <if test="goodsId != null">goods_id,</if>
+            <if test="supplierId != null">supplier_id,</if>
+            <if test="sellerId != null">seller_id,</if>
+            <if test="goodsName != null">goods_name,</if>
+            <if test="goodsCode != null">goods_code,</if>
+            <if test="goodsBarcode != null">goods_barcode,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="price != null">price,</if>
+            <if test="discountPrice != null">discount_price,</if>
+            <if test="vat != null">vat,</if>
+            <if test="itemLink != null">item_link,</if>
+            <if test="itemId != null">item_id,</if>
+            <if test="taxTotal != null">tax_total,</if>
+            <if test="customsTax != null">customs_tax,</if>
+            <if test="consumptionTax != null">consumption_tax,</if>
+            <if test="barePriceNow != null">bare_price_now,</if>
+            <if test="alliancePrice != null">alliance_price,</if>
+            <if test="openProductCode != null">open_product_code,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">#{orderId},</if>
+            <if test="storehouseId != null">#{storehouseId},</if>
+            <if test="goodsId != null">#{goodsId},</if>
+            <if test="supplierId != null">#{supplierId},</if>
+            <if test="sellerId != null">#{sellerId},</if>
+            <if test="goodsName != null">#{goodsName},</if>
+            <if test="goodsCode != null">#{goodsCode},</if>
+            <if test="goodsBarcode != null">#{goodsBarcode},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="price != null">#{price},</if>
+            <if test="discountPrice != null">#{discountPrice},</if>
+            <if test="vat != null">#{vat},</if>
+            <if test="itemLink != null">#{itemLink},</if>
+            <if test="itemId != null">#{itemId},</if>
+            <if test="taxTotal != null">#{taxTotal},</if>
+            <if test="customsTax != null">#{customsTax},</if>
+            <if test="consumptionTax != null">#{consumptionTax},</if>
+            <if test="barePriceNow != null">#{barePriceNow},</if>
+            <if test="alliancePrice != null">#{alliancePrice},</if>
+            <if test="openProductCode != null">#{openProductCode},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateOrderItem" parameterType="OrderItem">
+        update order_item
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="storehouseId != null">storehouse_id = #{storehouseId},</if>
+            <if test="goodsId != null">goods_id = #{goodsId},</if>
+            <if test="supplierId != null">supplier_id = #{supplierId},</if>
+            <if test="sellerId != null">seller_id = #{sellerId},</if>
+            <if test="goodsName != null">goods_name = #{goodsName},</if>
+            <if test="goodsCode != null">goods_code = #{goodsCode},</if>
+            <if test="goodsBarcode != null">goods_barcode = #{goodsBarcode},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="discountPrice != null">discount_price = #{discountPrice},</if>
+            <if test="vat != null">vat = #{vat},</if>
+            <if test="itemLink != null">item_link = #{itemLink},</if>
+            <if test="itemId != null">item_id = #{itemId},</if>
+            <if test="taxTotal != null">tax_total = #{taxTotal},</if>
+            <if test="customsTax != null">customs_tax = #{customsTax},</if>
+            <if test="consumptionTax != null">consumption_tax = #{consumptionTax},</if>
+            <if test="barePriceNow != null">bare_price_now = #{barePriceNow},</if>
+            <if test="alliancePrice != null">alliance_price = #{alliancePrice},</if>
+            <if test="openProductCode != null">open_product_code = #{openProductCode},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOrderItemById" parameterType="Long">
+        delete from order_item where id = #{id}
+    </delete>
+
+    <delete id="deleteOrderItemByIds" parameterType="String">
+        delete from order_item where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

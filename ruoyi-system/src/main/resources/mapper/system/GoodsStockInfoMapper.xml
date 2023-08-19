@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.GoodsStockInfoMapper">
+    
+    <resultMap type="GoodsStockInfo" id="GoodsStockInfoResult">
+        <result property="id"    column="id"    />
+        <result property="goodsId"    column="goods_id"    />
+        <result property="stockLockNum"    column="stock_lock_num"    />
+        <result property="stockApplyNum"    column="stock_apply_num"    />
+        <result property="sellerId"    column="seller_id"    />
+        <result property="lockStatus"    column="lock_status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="sellerName"    column="comp_name"   />
+        <result property="goodsName"     column="goods_name"    />
+    </resultMap>
+
+    <sql id="selectGoodsStockInfoVo">
+        select id, goods_id, stock_lock_num, stock_apply_num, seller_id, lock_status, create_by, create_time, update_by, update_time from goods_stock_info
+    </sql>
+
+    <sql id="selectGoodsStockInfoListVo">
+        select
+            t1.id, t1.goods_id, t1.stock_lock_num, t1.stock_apply_num, t1.seller_id,
+            t1.lock_status, t1.create_by, t1.create_time, t1.update_by, t1.update_time,
+            t2.goods_name, t3.comp_name
+        from
+            goods_stock_info t1
+            left join goods_info t2 on t1.goods_id = t2.id
+            left join seller_info t3 on t1.seller_id = t3.id
+    </sql>
+
+    <select id="selectGoodsStockInfoList" parameterType="GoodsStockInfo" resultMap="GoodsStockInfoResult">
+        <include refid="selectGoodsStockInfoListVo"/>
+        <where>  
+            <if test="goodsId != null  and goodsId != ''"> and t1.goods_id = #{goodsId}</if>
+            <if test="stockLockNum != null "> and t1.stock_lock_num = #{stockLockNum}</if>
+            <if test="stockApplyNum != null "> and t1.stock_apply_num = #{stockApplyNum}</if>
+            <if test="sellerId != null  and sellerId != ''"> and t1.seller_id = #{sellerId}</if>
+            <if test="lockStatus != null "> and t1.lock_status = #{lockStatus}</if>
+        </where>
+    </select>
+    
+    <select id="selectGoodsStockInfoById" parameterType="Long" resultMap="GoodsStockInfoResult">
+        <include refid="selectGoodsStockInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertGoodsStockInfo" parameterType="GoodsStockInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into goods_stock_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">goods_id,</if>
+            <if test="stockLockNum != null">stock_lock_num,</if>
+            <if test="stockApplyNum != null">stock_apply_num,</if>
+            <if test="sellerId != null">seller_id,</if>
+            <if test="lockStatus != null">lock_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">#{goodsId},</if>
+            <if test="stockLockNum != null">#{stockLockNum},</if>
+            <if test="stockApplyNum != null">#{stockApplyNum},</if>
+            <if test="sellerId != null">#{sellerId},</if>
+            <if test="lockStatus != null">#{lockStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateGoodsStockInfo" parameterType="GoodsStockInfo">
+        update goods_stock_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="goodsId != null">goods_id = #{goodsId},</if>
+            <if test="stockLockNum != null">stock_lock_num = #{stockLockNum},</if>
+            <if test="stockApplyNum != null">stock_apply_num = #{stockApplyNum},</if>
+            <if test="sellerId != null">seller_id = #{sellerId},</if>
+            <if test="lockStatus != null">lock_status = #{lockStatus},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteGoodsStockInfoById" parameterType="Long">
+        delete from goods_stock_info where id = #{id}
+    </delete>
+
+    <delete id="deleteGoodsStockInfoByIds" parameterType="String">
+        delete from goods_stock_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

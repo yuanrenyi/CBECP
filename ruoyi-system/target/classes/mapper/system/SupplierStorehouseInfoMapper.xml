@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SupplierStorehouseInfoMapper">
+    
+    <resultMap type="SupplierStorehouseInfo" id="SupplierStorehouseInfoResult">
+        <result property="id"    column="id"    />
+        <result property="supplierId"    column="supplier_id"    />
+        <result property="storehouseName"    column="storehouse_name"    />
+        <result property="storehouseType"    column="storehouse_type"    />
+        <result property="consignorId"    column="consignor_id"    />
+        <result property="storehouseOutNo"    column="storehouse_out_no"    />
+        <result property="storehouseToken"    column="storehouse_token"    />
+        <result property="contractName"    column="contract_name"    />
+        <result property="contractPhone"    column="contract_phone"    />
+        <result property="storehouseProvince"    column="storehouse_province"    />
+        <result property="storehouseCity"    column="storehouse_city"    />
+        <result property="storehouseCounty"    column="storehouse_county"    />
+        <result property="postalTaxType"    column="postal_tax_type"    />
+        <result property="freightAmount"    column="freight_amount"    />
+        <result property="freightRenewalAmount"    column="freight_renewal_amount"    />
+        <result property="dockingChannel"    column="docking_channel"    />
+        <result property="ifSplitOrder"    column="if_split_order"    />
+        <result property="addressDetail"    column="address_detail"    />
+        <result property="remark"    column="remark"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="supplierName"     column="supplier_name"  />
+
+        <result property="scname"     column="scname"  />
+        <result property="weightIncrease"     column="weight_increase"  />
+        <result property="freightIncrease"     column="freight_increase"  />
+        <result property="belongingBu"     column="belonging_bu"  />
+        <result property="signaTure"     column="signa_ture"  />
+        <result property="provinceName"     column="province_name"  />
+        <result property="cityName"     column="city_name"  />
+        <result property="countyName"     column="county_name"  />
+    </resultMap>
+
+    <sql id="selectSupplierStorehouseInfoVo">
+        select
+            id, supplier_id, storehouse_name, storehouse_type, consignor_id,
+            storehouse_out_no, storehouse_token, contract_name, contract_phone,
+            storehouse_province, storehouse_city, storehouse_county, postal_tax_type,
+            freight_amount, freight_renewal_amount, docking_channel, if_split_order,
+            address_detail, remark, create_by, create_time, update_by, update_time,
+            scname, weight_increase,freight_increase, belonging_bu, signa_ture,
+            province_name, city_name, county_name
+        from
+            supplier_storehouse_info
+    </sql>
+
+    <sql id="selectSupplierStorehouseInfoListVo">
+        select
+            s1.*, s2.supplier_name
+        from
+            supplier_storehouse_info s1
+            left join supplier_info s2 on s1.supplier_id = s2.id
+    </sql>
+
+    <select id="selectSupplierStorehouseInfoList" parameterType="SupplierStorehouseInfo" resultMap="SupplierStorehouseInfoResult">
+        <include refid="selectSupplierStorehouseInfoListVo"/>
+        <where>  
+            <if test="supplierId != null  and supplierId != ''"> and s1.supplier_id = #{supplierId}</if>
+            <if test="storehouseName != null  and storehouseName != ''"> and s1.storehouse_name like concat('%', #{storehouseName}, '%')</if>
+            <if test="storehouseType != null  and storehouseType != ''"> and s1.storehouse_type = #{storehouseType}</if>
+            <if test="consignorId != null  and consignorId != ''"> and s1.consignor_id = #{consignorId}</if>
+            <if test="storehouseOutNo != null  and storehouseOutNo != ''"> and s1.storehouse_out_no = #{storehouseOutNo}</if>
+            <if test="storehouseToken != null  and storehouseToken != ''"> and s1.storehouse_token = #{storehouseToken}</if>
+            <if test="contractName != null  and contractName != ''"> and s1.contract_name like concat('%', #{contractName}, '%')</if>
+            <if test="contractPhone != null  and contractPhone != ''"> and s1.contract_phone = #{contractPhone}</if>
+            <if test="storehouseProvince != null  and storehouseProvince != ''"> and s1.storehouse_province = #{storehouseProvince}</if>
+            <if test="storehouseCity != null  and storehouseCity != ''"> and s1.storehouse_city = #{storehouseCity}</if>
+            <if test="storehouseCounty != null  and storehouseCounty != ''"> and s1.storehouse_county = #{storehouseCounty}</if>
+            <if test="postalTaxType != null "> and s1.postal_tax_type = #{postalTaxType}</if>
+            <if test="freightAmount != null "> and s1.freight_amount = #{freightAmount}</if>
+            <if test="freightRenewalAmount != null "> and s1.freight_renewal_amount = #{freightRenewalAmount}</if>
+            <if test="dockingChannel != null  and dockingChannel != ''"> and s1.docking_channel = #{dockingChannel}</if>
+            <if test="ifSplitOrder != null "> and s1.if_split_order = #{ifSplitOrder}</if>
+            <if test="addressDetail != null  and addressDetail != ''"> and s1.address_detail = #{addressDetail}</if>
+
+            <if test="scname != null  and scname != ''"> and s1.scname = #{scname}</if>
+            <if test="weightIncrease != null  and weightIncrease != ''"> and s1.weight_increase = #{weightIncrease}</if>
+            <if test="freightIncrease != null  and freightIncrease != ''"> and s1.freight_increase = #{freightIncrease}</if>
+            <if test="belongingBu != null  and belongingBu != ''"> and s1.belonging_bu = #{belongingBu}</if>
+            <if test="signaTure != null  and signaTure != ''"> and s1.signa_ture = #{signaTure}</if>
+            <if test="createBy != null  and createBy != ''"> and s1.create_by = #{createBy}</if>
+        </where>
+    </select>
+    
+    <select id="selectSupplierStorehouseInfoById" parameterType="String" resultMap="SupplierStorehouseInfoResult">
+        <include refid="selectSupplierStorehouseInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSupplierStorehouseInfo" parameterType="SupplierStorehouseInfo">
+        insert into supplier_storehouse_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="supplierId != null">supplier_id,</if>
+            <if test="storehouseName != null">storehouse_name,</if>
+            <if test="storehouseType != null">storehouse_type,</if>
+            <if test="consignorId != null">consignor_id,</if>
+            <if test="storehouseOutNo != null">storehouse_out_no,</if>
+            <if test="storehouseToken != null">storehouse_token,</if>
+            <if test="contractName != null">contract_name,</if>
+            <if test="contractPhone != null">contract_phone,</if>
+            <if test="storehouseProvince != null">storehouse_province,</if>
+            <if test="storehouseCity != null">storehouse_city,</if>
+            <if test="storehouseCounty != null">storehouse_county,</if>
+            <if test="postalTaxType != null">postal_tax_type,</if>
+            <if test="freightAmount != null">freight_amount,</if>
+            <if test="freightRenewalAmount != null">freight_renewal_amount,</if>
+            <if test="dockingChannel != null">docking_channel,</if>
+            <if test="ifSplitOrder != null">if_split_order,</if>
+            <if test="addressDetail != null">address_detail,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+
+            <if test="scname != null">scname,</if>
+            <if test="weightIncrease != null">weight_increase,</if>
+            <if test="freightIncrease != null">freight_increase,</if>
+            <if test="belongingBu != null">belonging_bu,</if>
+            <if test="signaTure != null">signa_ture,</if>
+
+            <if test="provinceName != null">province_name,</if>
+            <if test="cityName != null">city_name,</if>
+            <if test="countyName != null">county_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="supplierId != null">#{supplierId},</if>
+            <if test="storehouseName != null">#{storehouseName},</if>
+            <if test="storehouseType != null">#{storehouseType},</if>
+            <if test="consignorId != null">#{consignorId},</if>
+            <if test="storehouseOutNo != null">#{storehouseOutNo},</if>
+            <if test="storehouseToken != null">#{storehouseToken},</if>
+            <if test="contractName != null">#{contractName},</if>
+            <if test="contractPhone != null">#{contractPhone},</if>
+            <if test="storehouseProvince != null">#{storehouseProvince},</if>
+            <if test="storehouseCity != null">#{storehouseCity},</if>
+            <if test="storehouseCounty != null">#{storehouseCounty},</if>
+            <if test="postalTaxType != null">#{postalTaxType},</if>
+            <if test="freightAmount != null">#{freightAmount},</if>
+            <if test="freightRenewalAmount != null">#{freightRenewalAmount},</if>
+            <if test="dockingChannel != null">#{dockingChannel},</if>
+            <if test="ifSplitOrder != null">#{ifSplitOrder},</if>
+            <if test="addressDetail != null">#{addressDetail},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+
+            <if test="scname != null">#{scname},</if>
+            <if test="weightIncrease != null">#{weightIncrease},</if>
+            <if test="freightIncrease != null">#{freightIncrease},</if>
+            <if test="belongingBu != null">#{belongingBu},</if>
+            <if test="signaTure != null">#{signaTure},</if>
+            <if test="provinceName != null">#{provinceName},</if>
+            <if test="cityName != null">#{cityName},</if>
+            <if test="countyName != null">#{countyName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSupplierStorehouseInfo" parameterType="SupplierStorehouseInfo">
+        update supplier_storehouse_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="supplierId != null">supplier_id = #{supplierId},</if>
+            <if test="storehouseName != null">storehouse_name = #{storehouseName},</if>
+            <if test="storehouseType != null">storehouse_type = #{storehouseType},</if>
+            <if test="consignorId != null">consignor_id = #{consignorId},</if>
+            <if test="storehouseOutNo != null">storehouse_out_no = #{storehouseOutNo},</if>
+            <if test="storehouseToken != null">storehouse_token = #{storehouseToken},</if>
+            <if test="contractName != null">contract_name = #{contractName},</if>
+            <if test="contractPhone != null">contract_phone = #{contractPhone},</if>
+            <if test="storehouseProvince != null">storehouse_province = #{storehouseProvince},</if>
+            <if test="storehouseCity != null">storehouse_city = #{storehouseCity},</if>
+            <if test="storehouseCounty != null">storehouse_county = #{storehouseCounty},</if>
+            <if test="postalTaxType != null">postal_tax_type = #{postalTaxType},</if>
+            <if test="freightAmount != null">freight_amount = #{freightAmount},</if>
+            <if test="freightRenewalAmount != null">freight_renewal_amount = #{freightRenewalAmount},</if>
+            <if test="dockingChannel != null">docking_channel = #{dockingChannel},</if>
+            <if test="ifSplitOrder != null">if_split_order = #{ifSplitOrder},</if>
+            <if test="addressDetail != null">address_detail = #{addressDetail},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+
+            <if test="scname != null">scname = #{scname},</if>
+            <if test="weightIncrease != null">weight_increase = #{weightIncrease},</if>
+            <if test="freightIncrease != null">freight_increase = #{freightIncrease},</if>
+            <if test="belongingBu != null">belonging_bu = #{belongingBu},</if>
+            <if test="signaTure != null">signa_ture = #{signaTure},</if>
+
+            <if test="provinceName != null">province_name = #{provinceName},</if>
+            <if test="cityName != null">city_name = #{cityName},</if>
+            <if test="countyName != null">county_name = #{countyName},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSupplierStorehouseInfoById" parameterType="String">
+        delete from supplier_storehouse_info where id = #{id}
+    </delete>
+
+    <delete id="deleteSupplierStorehouseInfoByIds" parameterType="String">
+        delete from supplier_storehouse_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

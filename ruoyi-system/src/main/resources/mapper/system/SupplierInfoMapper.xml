@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SupplierInfoMapper">
+    
+    <resultMap type="SupplierInfo" id="SupplierInfoResult">
+        <result property="id"    column="id"    />
+        <result property="supplierName"    column="supplier_name"    />
+        <result property="supplierNickName"    column="supplier_nick_name"    />
+        <result property="supplierCode"    column="supplier_code"    />
+        <result property="contractName"    column="contract_name"    />
+        <result property="contractPhone"    column="contract_phone"    />
+        <result property="purchaser"    column="purchaser"    />
+        <result property="withdrawalAccount"    column="withdrawal_account"    />
+        <result property="remark"    column="remark"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="ownerUserId"    column="owner_user_id"    />
+        <result property="secretkey"    column="secretkey"    />
+        <result property="enabled"    column="enabled"    />
+        <result property="formalitiesFee"    column="formalities_fee"    />
+        <result property="formalitiesFeeType"    column="formalities_fee_type"    />
+        <result property="bondedWarehouseId"    column="bonded_warehouse_id"    />
+        <result property="bondedWarehouseName"    column="bonded_warehouse_name"    />
+    </resultMap>
+
+    <sql id="selectSupplierInfoVo">
+        select
+            id, supplier_name, supplier_nick_name, supplier_code, contract_name,
+            contract_phone, purchaser, withdrawal_account, remark,
+            create_by, create_time, update_by, update_time, owner_user_id,
+            secretkey, enabled, formalities_fee, formalities_fee_type
+        from
+            supplier_info
+    </sql>
+
+    <select id="selectSupplierInfoList" parameterType="SupplierInfo" resultMap="SupplierInfoResult">
+        select
+            t1.id, t1.supplier_name, t1.supplier_nick_name, t1.supplier_code, t1.contract_name,
+            t1.contract_phone, t1.purchaser, t1.withdrawal_account, t1.remark,
+            t1.create_by, t1.create_time, t1.update_by, t1.update_time, t1.owner_user_id,
+            t1.secretkey, t1.enabled, t1.formalities_fee, t1.formalities_fee_type,
+            t1.bonded_warehouse_id, t2.bonded_warehouse_name
+        from
+            supplier_info t1
+            left join
+            bonded_warehouse_info t2 on t1.bonded_warehouse_id = t2.id
+        <where>  
+            <if test="supplierName != null  and supplierName != ''"> and t1.supplier_name like concat('%', #{supplierName}, '%')</if>
+            <if test="supplierNickName != null  and supplierNickName != ''"> and t1.supplier_nick_name like concat('%', #{supplierNickName}, '%')</if>
+            <if test="supplierCode != null  and supplierCode != ''"> and t1.supplier_code = #{supplierCode}</if>
+            <if test="contractName != null  and contractName != ''"> and t1.contract_name like concat('%', #{contractName}, '%')</if>
+            <if test="contractPhone != null  and contractPhone != ''"> and t1.contract_phone = #{contractPhone}</if>
+            <if test="purchaser != null  and purchaser != ''"> and t1.purchaser = #{purchaser}</if>
+            <if test="withdrawalAccount != null  and withdrawalAccount != ''"> and t1.withdrawal_account = #{withdrawalAccount}</if>
+            <if test="ownerUserId != null  and ownerUserId != ''"> and t1.owner_user_id = #{ownerUserId}</if>
+            <if test="secretkey != null  and secretkey != ''"> and t1.secretkey = #{secretkey}</if>
+            <if test="enabled != null"> and t1.enabled = #{enabled}</if>
+            <if test="formalitiesFee != null  and formalitiesFee != ''"> and t1.formalities_fee = #{formalitiesFee}</if>
+            <if test="formalitiesFeeType != null  and formalitiesFeeType != ''"> and t1.formalities_fee_type = #{formalitiesFeeType}</if>
+            <if test="bondedWarehouseId != null and bondedWarehouseId !=''"> and t1.bonded_warehouse_id = #{bondedWarehouseId}</if>
+            <if test="createBy != null and createBy !=''"> and t1.create_by = #{createBy}</if>
+        </where>
+        order by t1.create_time desc
+    </select>
+    
+    <select id="selectSupplierInfoById" parameterType="String" resultMap="SupplierInfoResult">
+        select
+            t1.id, t1.supplier_name, t1.supplier_nick_name, t1.supplier_code, t1.contract_name,
+            t1.contract_phone, t1.purchaser, t1.withdrawal_account, t1.remark,
+            t1.create_by, t1.create_time, t1.update_by, t1.update_time, t1.owner_user_id,
+            t1.secretkey, t1.enabled, t1.formalities_fee, t1.formalities_fee_type,
+            t1.bonded_warehouse_id, t2.bonded_warehouse_name
+        from
+            supplier_info t1
+            left join
+            bonded_warehouse_info t2 on t1.bonded_warehouse_id = t2.id
+        where t1.id = #{id}
+    </select>
+        
+    <insert id="insertSupplierInfo" parameterType="SupplierInfo">
+        insert into supplier_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="supplierName != null">supplier_name,</if>
+            <if test="supplierNickName != null">supplier_nick_name,</if>
+            <if test="supplierCode != null">supplier_code,</if>
+            <if test="contractName != null">contract_name,</if>
+            <if test="contractPhone != null">contract_phone,</if>
+            <if test="purchaser != null">purchaser,</if>
+            <if test="withdrawalAccount != null">withdrawal_account,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="ownerUserId != null">owner_user_id,</if>
+            <if test="secretkey != null">secretkey,</if>
+            <if test="enabled != null">enabled,</if>
+            <if test="formalitiesFee != null">formalities_fee,</if>
+            <if test="formalitiesFeeType != null">formalities_fee_type,</if>
+            <if test="bondedWarehouseId != null">bonded_warehouse_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="supplierName != null">#{supplierName},</if>
+            <if test="supplierNickName != null">#{supplierNickName},</if>
+            <if test="supplierCode != null">#{supplierCode},</if>
+            <if test="contractName != null">#{contractName},</if>
+            <if test="contractPhone != null">#{contractPhone},</if>
+            <if test="purchaser != null">#{purchaser},</if>
+            <if test="withdrawalAccount != null">#{withdrawalAccount},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+
+            <if test="ownerUserId != null">#{ownerUserId},</if>
+            <if test="secretkey != null">#{secretkey},</if>
+            <if test="enabled != null">#{enabled},</if>
+            <if test="formalitiesFee != null">#{formalitiesFee},</if>
+            <if test="formalitiesFeeType != null">#{formalitiesFeeType},</if>
+            <if test="bondedWarehouseId != null">#{bondedWarehouseId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSupplierInfo" parameterType="SupplierInfo">
+        update supplier_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="supplierName != null">supplier_name = #{supplierName},</if>
+            <if test="supplierNickName != null">supplier_nick_name = #{supplierNickName},</if>
+            <if test="supplierCode != null">supplier_code = #{supplierCode},</if>
+            <if test="contractName != null">contract_name = #{contractName},</if>
+            <if test="contractPhone != null">contract_phone = #{contractPhone},</if>
+            <if test="purchaser != null">purchaser = #{purchaser},</if>
+            <if test="withdrawalAccount != null">withdrawal_account = #{withdrawalAccount},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+
+            <if test="ownerUserId != null">owner_user_id = #{ownerUserId},</if>
+            <if test="secretkey != null">secretkey = #{secretkey},</if>
+            <if test="enabled != null">enabled = #{enabled},</if>
+            <if test="formalitiesFee != null">formalities_fee = #{formalitiesFee},</if>
+            <if test="formalitiesFeeType != null">formalities_fee_type = #{formalitiesFeeType},</if>
+            <if test="bondedWarehouseId != null">bonded_warehouse_id = #{bondedWarehouseId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSupplierInfoById" parameterType="String">
+        delete from supplier_info where id = #{id}
+    </delete>
+
+    <delete id="deleteSupplierInfoByIds" parameterType="String">
+        delete from supplier_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

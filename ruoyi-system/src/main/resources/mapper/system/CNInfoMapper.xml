@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CNInfoMapper">
+
+    <resultMap type="Province" id="ProvinceResult">
+        <result property="provinceID"         column="provinceID"        />
+        <result property="province"          column="province"          />
+    </resultMap>
+
+    <resultMap id="CityResult" type="City">
+        <result property="cityID" column="cityID" />
+        <result property="city" column="city" />
+    </resultMap>
+
+    <resultMap id="AreaResult" type="Area" >
+        <result property="areaID" column="areaID" />
+        <result property="area" column="area" />
+    </resultMap>
+
+    <select id="getAllProvince" resultMap="ProvinceResult">
+        select provinceID, province from province
+    </select>
+
+    <select id="getAllCity" resultMap="CityResult">
+        select cityID, city from city
+    </select>
+
+    <select id="getAllArea" resultMap="AreaResult">
+        select areaID, area from area
+    </select>
+
+    <select id="getCityByProvinceID" parameterType="integer" resultMap="CityResult">
+        select cityID, city from city where fatherID = #{provinceID}
+    </select>
+
+    <select id="getAreaByCityID" parameterType="integer" resultMap="AreaResult">
+        select areaID, area from area where fatherID = #{cityID}
+    </select>
+
+</mapper>

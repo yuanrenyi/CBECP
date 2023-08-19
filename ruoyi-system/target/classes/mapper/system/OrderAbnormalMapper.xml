@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.OrderAbnormalMapper">
+
+    <resultMap type="OrderAbnormal" id="OrderAbnormalResult">
+        <result property="id"    column="id"    />
+        <result property="orderInfoId"    column="order_info_id"    />
+        <result property="abnormalDesc"    column="abnormal_desc"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectOrderAbnormalVo">
+        select id, order_info_id, abnormal_desc, create_by, create_time from order_abnormal
+    </sql>
+
+    <select id="selectOrderAbnormalList" parameterType="OrderAbnormal" resultMap="OrderAbnormalResult">
+        <include refid="selectOrderAbnormalVo"/>
+        <where>
+            <if test="orderInfoId != null "> and order_info_id = #{orderInfoId}</if>
+            <if test="abnormalDesc != null  and abnormalDesc != ''"> and abnormal_desc = #{abnormalDesc}</if>
+        </where>
+    </select>
+
+    <select id="selectOrderAbnormalById" parameterType="Long" resultMap="OrderAbnormalResult">
+        <include refid="selectOrderAbnormalVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertOrderAbnormal" parameterType="OrderAbnormal" useGeneratedKeys="true" keyProperty="id">
+        insert into order_abnormal
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderInfoId != null">order_info_id,</if>
+            <if test="abnormalDesc != null">abnormal_desc,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderInfoId != null">#{orderInfoId},</if>
+            <if test="abnormalDesc != null">#{abnormalDesc},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateOrderAbnormal" parameterType="OrderAbnormal">
+        update order_abnormal
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderInfoId != null">order_info_id = #{orderInfoId},</if>
+            <if test="abnormalDesc != null">abnormal_desc = #{abnormalDesc},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOrderAbnormalById" parameterType="Long">
+        delete from order_abnormal where id = #{id}
+    </delete>
+
+    <delete id="deleteOrderAbnormalByIds" parameterType="String">
+        delete from order_abnormal where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="queryOrderAbnormalByOrderId" parameterType="long" resultMap="OrderAbnormalResult">
+        <include refid="selectOrderAbnormalVo" />
+        where order_info_id = #{orderInfoId} limit 1
+    </select>
+</mapper>

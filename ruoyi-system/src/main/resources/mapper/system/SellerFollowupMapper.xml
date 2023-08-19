@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SellerFollowupMapper">
+
+    <resultMap type="SellerFollowup" id="SellerFollowupResult">
+        <result property="id"    column="id"    />
+        <result property="sellerId"    column="seller_id"    />
+        <result property="sellerName"    column="seller_name"    />
+        <result property="followupTime"    column="followup_time"    />
+        <result property="followupItem"    column="followup_item"    />
+        <result property="followupDesc"    column="followup_desc"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="followupName"    column="nick_name"    />
+    </resultMap>
+
+    <sql id="selectSellerFollowupVo">
+        select id, seller_id, seller_name, followup_time, followup_item, followup_desc, create_by, create_time from seller_followup
+    </sql>
+
+    <sql id="selectSellerFollowupDTO">
+        select
+            t1.id, t1.seller_id, t1.seller_name, t1.followup_time, t1.followup_item,
+            t1.followup_desc, t1.create_by, t1.create_time, t2.nick_name
+        from
+            seller_followup t1 left join sys_user t2 on t1.create_by = t2.user_id
+    </sql>
+
+    <select id="selectSellerFollowupListDTO" parameterType="SellerFollowup" resultMap="SellerFollowupResult">
+        <include refid="selectSellerFollowupDTO"/>
+        <where>
+            <if test="sellerId != null  and sellerId != ''"> and t1.seller_id = #{sellerId}</if>
+            <if test="sellerName != null  and sellerName != ''"> and t1.seller_name like concat('%', #{sellerName}, '%')</if>
+            <if test="followupTime != null  and followupTime != ''"> and t1.followup_time = #{followupTime}</if>
+            <if test="followupItem != null  and followupItem != ''"> and t1.followup_item = #{followupItem}</if>
+            <if test="followupDesc != null  and followupDesc != ''"> and t1.followup_desc = #{followupDesc}</if>
+            <if test="createBy != null  and createBy != ''"> and t1.create_by = #{createBy}</if>
+        </where>
+    </select>
+
+
+    <select id="selectSellerFollowupList" parameterType="SellerFollowup" resultMap="SellerFollowupResult">
+        <include refid="selectSellerFollowupVo"/>
+        <where>
+            <if test="sellerId != null  and sellerId != ''"> and seller_id = #{sellerId}</if>
+            <if test="sellerName != null  and sellerName != ''"> and seller_name like concat('%', #{sellerName}, '%')</if>
+            <if test="followupTime != null  and followupTime != ''"> and followup_time = #{followupTime}</if>
+            <if test="followupItem != null  and followupItem != ''"> and followup_item = #{followupItem}</if>
+            <if test="followupDesc != null  and followupDesc != ''"> and followup_desc = #{followupDesc}</if>
+            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
+        </where>
+        order by followup_time desc
+    </select>
+
+    <select id="selectSellerFollowupById" parameterType="Long" resultMap="SellerFollowupResult">
+        <include refid="selectSellerFollowupVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSellerFollowup" parameterType="SellerFollowup" useGeneratedKeys="true" keyProperty="id">
+        insert into seller_followup
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sellerId != null">seller_id,</if>
+            <if test="sellerName != null">seller_name,</if>
+            <if test="followupTime != null">followup_time,</if>
+            <if test="followupItem != null">followup_item,</if>
+            <if test="followupDesc != null">followup_desc,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sellerId != null">#{sellerId},</if>
+            <if test="sellerName != null">#{sellerName},</if>
+            <if test="followupTime != null">#{followupTime},</if>
+            <if test="followupItem != null">#{followupItem},</if>
+            <if test="followupDesc != null">#{followupDesc},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSellerFollowup" parameterType="SellerFollowup">
+        update seller_followup
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sellerId != null">seller_id = #{sellerId},</if>
+            <if test="sellerName != null">seller_name = #{sellerName},</if>
+            <if test="followupTime != null">followup_time = #{followupTime},</if>
+            <if test="followupItem != null">followup_item = #{followupItem},</if>
+            <if test="followupDesc != null">followup_desc = #{followupDesc},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSellerFollowupById" parameterType="Long">
+        delete from seller_followup where id = #{id}
+    </delete>
+
+    <delete id="deleteSellerFollowupByIds" parameterType="String">
+        delete from seller_followup where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getTodayFollowupNotice" parameterType="Long" resultMap="SellerFollowupResult">
+        <include refid="selectSellerFollowupVo" />
+        where
+            create_by = #{userId}
+            and left(followup_time, 10) = DATE_FORMAT(NOW(), '%Y-%m-%d')
+        order by followup_time asc
+    </select>
+
+    <select id="getFollowupAll" resultMap="SellerFollowupResult">
+        <include refid="selectSellerFollowupDTO" />
+        <where>
+            <if test="userId != null"> create_by = #{userId} </if>
+            <if test="type == 1">
+                and left(followup_time, 10) &lt; DATE_FORMAT(NOW(), '%Y-%m-%d')
+                order by followup_time desc
+            </if>
+            <if test="type == 2">
+                and left(followup_time, 10) &gt;= DATE_FORMAT(NOW(), '%Y-%m-%d')
+                order by followup_time asc
+            </if>
+        </where>
+    </select>
+</mapper>

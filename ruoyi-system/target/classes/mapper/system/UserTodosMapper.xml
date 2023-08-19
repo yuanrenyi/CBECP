@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.UserTodosMapper">
+    
+    <resultMap type="UserTodos" id="UserTodosResult">
+        <result property="id"    column="id"    />
+        <result property="todoThing"    column="todo_thing"    />
+        <result property="todoTime"    column="todo_time"    />
+        <result property="todoStatus"    column="todo_status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="reason"    column="reason"    />
+        <result property="completeTime"    column="complete_time"    />
+    </resultMap>
+
+    <sql id="selectUserTodosVo">
+        select id, todo_thing, todo_time, todo_status, create_by, create_time, update_by, update_time, reason, complete_time from user_todos
+    </sql>
+
+    <select id="selectUserTodosList" parameterType="UserTodos" resultMap="UserTodosResult">
+        <include refid="selectUserTodosVo"/>
+        <where>  
+            <if test="todoThing != null  and todoThing != ''"> and todo_thing = #{todoThing}</if>
+            <if test="todoTime != null  and todoTime != ''"> and todo_time = #{todoTime}</if>
+            <if test="createBy != null"> and create_by = #{createBy}</if>
+            <if test="todoStatus != null and todoStatus == 1 "> and (todo_status = 1 or todo_status = 3) </if>
+            <if test="todoStatus != null and todoStatus == 0 "> and (todo_status = 0 or todo_status = 2) </if>
+            <if test="todoStatus != null and todoStatus == 1 "> order by create_time desc </if>
+            <if test="todoStatus != null and todoStatus == 0 "> order by create_time asc </if>
+        </where>
+    </select>
+    
+    <select id="selectUserTodosById" parameterType="Long" resultMap="UserTodosResult">
+        <include refid="selectUserTodosVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertUserTodos" parameterType="UserTodos" useGeneratedKeys="true" keyProperty="id">
+        insert into user_todos
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="todoThing != null">todo_thing,</if>
+            <if test="todoTime != null">todo_time,</if>
+            <if test="todoStatus != null">todo_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="reason != null">reason,</if>
+            <if test="completeTime != null">complete_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="todoThing != null">#{todoThing},</if>
+            <if test="todoTime != null">#{todoTime},</if>
+            <if test="todoStatus != null">#{todoStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="completeTime != null">#{completeTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUserTodos" parameterType="UserTodos">
+        update user_todos
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="todoThing != null">todo_thing = #{todoThing},</if>
+            <if test="todoTime != null">todo_time = #{todoTime},</if>
+            <if test="todoStatus != null">todo_status = #{todoStatus},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="reason != null">reason = #{reason},</if>
+            <if test="completeTime != null">complete_time = #{completeTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUserTodosById" parameterType="Long">
+        delete from user_todos where id = #{id}
+    </delete>
+
+    <delete id="deleteUserTodosByIds" parameterType="String">
+        delete from user_todos where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

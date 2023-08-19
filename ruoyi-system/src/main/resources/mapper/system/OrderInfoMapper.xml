@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.OrderInfoMapper">
+
+    <resultMap type="OrderInfo" id="OrderInfoResult">
+        <result property="id"    column="id"    />
+        <result property="storehouseId"    column="storehouse_id"    />
+        <result property="sellerId"    column="seller_id"    />
+        <result property="supplierId"    column="supplier_id"    />
+        <result property="orderType"    column="order_type"    />
+        <result property="sorderNo"    column="sorder_no"    />
+        <result property="declareOrderNo"    column="declare_order_no"    />
+        <result property="outTradeNo"    column="out_trade_no"    />
+        <result property="orderStatus"    column="order_status"    />
+        <result property="expressName"    column="express_name"    />
+        <result property="shipOrderNumber"    column="ship_order_number"    />
+        <result property="shopNick"    column="shop_nick"    />
+        <result property="buyerRegNo"    column="buyer_reg_no"    />
+        <result property="buyerName"    column="buyer_name"    />
+        <result property="buyerTelephone"    column="buyer_telephone"    />
+        <result property="buyerIdType"    column="buyer_id_type"    />
+        <result property="buyerIdNumber"    column="buyer_id_number"    />
+        <result property="consignee"    column="consignee"    />
+        <result property="consigneeTelephone"    column="consignee_telephone"    />
+        <result property="consigneeAddress"    column="consignee_address"    />
+        <result property="consigneeZipCode"    column="consignee_zip_code"    />
+        <result property="consigneeProvince"    column="consignee_province"    />
+        <result property="consigneeCity"    column="consignee_city"    />
+        <result property="consigneeDistrict"    column="consignee_district"    />
+        <result property="totalAmount"    column="total_amount"    />
+        <result property="realTotalAmount"    column="real_total_amount"    />
+        <result property="taxTotalAmount"    column="tax_total_amount"    />
+        <result property="discountAmount"    column="discount_amount"    />
+        <result property="freightAmount"    column="freight_amount"    />
+        <result property="payMode"    column="pay_mode"    />
+        <result property="payTime"    column="pay_time"    />
+        <result property="gatewayOrderId"    column="gateway_order_id"    />
+        <result property="addTime"    column="add_time"    />
+        <result property="lgOrderCode"    column="lg_order_code"    />
+        <result property="callbackTime"    column="callback_time"    />
+        <result property="vat"    column="vat"    />
+        <result property="customsTax"    column="customs_tax"    />
+        <result property="consumptionTax"    column="consumption_tax"    />
+        <result property="orderStatusRemark"    column="order_status_remark"    />
+        <result property="callbackMallStatus"    column="callback_mall_status"    />
+        <result property="callbackMallStatusValue"    column="callback_mall_status_value"    />
+        <result property="allianceFreightAmount"    column="alliance_freight_amount"    />
+        <result property="appointExpress"    column="appoint_express"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="supplierName"    column="supplier_name"    />
+        <result property="sellerName"    column="seller_name"    />
+        <result property="sellerWithdrawalStatus" column="seller_withdrawal_status" />
+        <result property="supplierWithdrawalStatus" column="supplier_withdrawal_status" />
+        <result property="sellerWithdrawalAmount" column="seller_withdrawal_amount" />
+        <result property="supplierWithdrawalAmount" column="supplier_withdrawal_amount" />
+        <result property="abnormalStatus" column="abnormal_status" />
+        <result property="abnormalDesc" column="abnormal_desc" />
+        <result property="storehouseName" column="storehouse_name" />
+        <result property="aftermarketStatus" column="aftermarket_status" />
+        <result property="aftermarketStatusDesc" column="aftermarket_status_desc" />
+    </resultMap>
+
+
+    <resultMap type="OrderInfoVo" id="OrderInfoDetailResult">
+        <result property="id"    column="id"    />
+        <result property="storehouseId"    column="storehouse_id"    />
+        <result property="sellerId"    column="seller_id"    />
+        <result property="supplierId"    column="supplier_id"    />
+        <result property="orderType"    column="order_type"    />
+        <result property="sorderNo"    column="sorder_no"    />
+        <result property="declareOrderNo"    column="declare_order_no"    />
+        <result property="outTradeNo"    column="out_trade_no"    />
+        <result property="orderStatus"    column="order_status"    />
+        <result property="expressName"    column="express_name"    />
+        <result property="shipOrderNumber"    column="ship_order_number"    />
+        <result property="shopNick"    column="shop_nick"    />
+        <result property="buyerRegNo"    column="buyer_reg_no"    />
+        <result property="buyerName"    column="buyer_name"    />
+        <result property="buyerTelephone"    column="buyer_telephone"    />
+        <result property="buyerIdType"    column="buyer_id_type"    />
+        <result property="buyerIdNumber"    column="buyer_id_number"    />
+        <result property="consignee"    column="consignee"    />
+        <result property="consigneeTelephone"    column="consignee_telephone"    />
+        <result property="consigneeAddress"    column="consignee_address"    />
+        <result property="consigneeZipCode"    column="consignee_zip_code"    />
+        <result property="consigneeProvince"    column="consignee_province"    />
+        <result property="consigneeCity"    column="consignee_city"    />
+        <result property="consigneeDistrict"    column="consignee_district"    />
+        <result property="totalAmount"    column="total_amount"    />
+        <result property="realTotalAmount"    column="real_total_amount"    />
+        <result property="taxTotalAmount"    column="tax_total_amount"    />
+        <result property="discountAmount"    column="discount_amount"    />
+        <result property="freightAmount"    column="freight_amount"    />
+        <result property="payMode"    column="pay_mode"    />
+        <result property="payTime"    column="pay_time"    />
+        <result property="gatewayOrderId"    column="gateway_order_id"    />
+        <result property="addTime"    column="add_time"    />
+        <result property="lgOrderCode"    column="lg_order_code"    />
+        <result property="callbackTime"    column="callback_time"    />
+        <result property="vat"    column="vat"    />
+        <result property="customsTax"    column="customs_tax"    />
+        <result property="consumptionTax"    column="consumption_tax"    />
+        <result property="orderStatusRemark"    column="order_status_remark"    />
+        <result property="callbackMallStatus"    column="callback_mall_status"    />
+        <result property="callbackMallStatusValue"    column="callback_mall_status_value"    />
+        <result property="allianceFreightAmount"    column="alliance_freight_amount"    />
+        <result property="appointExpress"    column="appoint_express"    />
+        <result property="supplierName"    column="supplier_name"    />
+        <result property="sellerName"    column="seller_name"    />
+        <result property="sellerWithdrawalStatus" column="seller_withdrawal_status" />
+        <result property="supplierWithdrawalStatus" column="supplier_withdrawal_status" />
+        <result property="sellerWithdrawalAmount" column="seller_withdrawal_amount" />
+        <result property="supplierWithdrawalAmount" column="supplier_withdrawal_amount" />
+        <result property="abnormalStatus" column="abnormal_status" />
+        <result property="abnormalDesc" column="abnormal_desc" />
+        <result property="storehouseName" column="storehouse_name" />
+        <result property="aftermarketStatus" column="aftermarket_status" />
+        <result property="aftermarketStatusDesc" column="aftermarket_status_desc" />
+        <collection property="orderItems" ofType="OrderItem">
+            <id column="id" property="id" />
+            <result property="orderId"    column="order_id"    />
+            <result property="goodsId"    column="goods_id"    />
+            <result property="goodsName"    column="goods_name"    />
+            <result property="goodsCode"    column="goods_code"    />
+            <result property="goodsBarcode"    column="goods_barcode"    />
+            <result property="quantity"    column="quantity"    />
+            <result property="price"    column="price"    />
+            <result property="discountPrice"    column="discount_price"    />
+            <result property="vat"    column="item_vat"    />
+            <result property="itemLink"    column="item_link"    />
+            <result property="itemId"    column="item_id"    />
+            <result property="taxTotal"    column="tax_total"    />
+            <result property="customsTax"    column="customs_tax"    />
+            <result property="consumptionTax"    column="consumption_tax"    />
+            <result property="barePriceNow"    column="bare_price_now"    />
+            <result property="alliancePrice"    column="alliance_price"    />
+            <result property="openProductCode"    column="open_product_code"    />
+        </collection>
+    </resultMap>
+
+    <sql id="selectOrderInfoVo">
+        select
+            t1.id, t1.storehouse_id, t1.seller_id, t1.supplier_id, t1.order_type, t1.sorder_no,
+            t1.declare_order_no, t1.out_trade_no, t1.order_status, t1.express_name,
+            t1.ship_order_number, t1.shop_nick, t1.buyer_reg_no, t1.buyer_name, t1.buyer_telephone,
+            t1.buyer_id_type, t1.buyer_id_number, t1.consignee, t1.consignee_telephone,
+            t1.consignee_address, t1.consignee_zip_code, t1.consignee_province, t1.consignee_city,
+            t1.consignee_district, t1.total_amount, t1.real_total_amount, t1.tax_total_amount,
+            t1.discount_amount, t1.freight_amount, t1.pay_mode, t1.pay_time, t1.gateway_order_id,
+            t1.add_time, t1.lg_order_code, t1.callback_time, t1.vat, t1.customs_tax, t1.consumption_tax,
+            t1.order_status_remark, t1.callback_mall_status, t1.callback_mall_status_value,
+            t1.alliance_freight_amount, t1.appoint_express, t1.create_time, t1.create_by,
+            t1.update_time, t1.update_by, t2.supplier_name, t3.comp_name seller_name,
+            t1.seller_withdrawal_status, t1.supplier_withdrawal_status, t1.seller_withdrawal_amount,
+            t1.supplier_withdrawal_amount, t1.abnormal_status, t4.abnormal_desc, t5.storehouse_name,
+            t1.aftermarket_status, t1.aftermarket_status_desc
+        from
+            order_info t1
+            left join supplier_info t2 on t1.supplier_id = t2.id
+            left join seller_info t3 on t1.seller_id = t3.id
+            left join order_abnormal t4 on t1.id = t4.order_info_id
+            left join supplier_storehouse_info t5 on t1.storehouse_id = t5.id
+    </sql>
+
+
+    <sql id="selectOrderInfoDetailVo">
+        select
+            t1.id, t1.storehouse_id, t1.seller_id, t1.supplier_id, t1.order_type, t1.sorder_no,
+            t1.declare_order_no, t1.out_trade_no, t1.order_status, t1.express_name,
+            t1.ship_order_number, t1.shop_nick, t1.buyer_reg_no, t1.buyer_name, t1.buyer_telephone,
+            t1.buyer_id_type, t1.buyer_id_number, t1.consignee, t1.consignee_telephone,
+            t1.consignee_address, t1.consignee_zip_code, t1.consignee_province, t1.consignee_city,
+            t1.consignee_district, t1.total_amount, t1.real_total_amount, t1.tax_total_amount,
+            t1.discount_amount, t1.freight_amount, t1.pay_mode, t1.pay_time, t1.gateway_order_id,
+            t1.add_time, t1.lg_order_code, t1.callback_time, t1.vat, t1.customs_tax, t1.consumption_tax,
+            t1.order_status_remark, t1.callback_mall_status, t1.callback_mall_status_value,
+            t1.alliance_freight_amount, t1.appoint_express, t1.create_time, t1.create_by,
+            t1.update_time, t1.update_by,
+            t2.goods_id, t2.goods_name, t2.goods_code, t2.goods_barcode, t2.quantity, t2.price,
+            t2.discount_price, t2.vat item_vat, t2.item_link, t2.item_id, t2.tax_total, t2.customs_tax,
+            t2.consumption_tax, t2.bare_price_now, t2.alliance_price, t2.open_product_code,
+            t3.supplier_name, t4.comp_name seller_name,
+            t1.seller_withdrawal_status, t1.supplier_withdrawal_status, t1.seller_withdrawal_amount,
+            t1.supplier_withdrawal_amount, t6.storehouse_name, t1.aftermarket_status,
+            t1.aftermarket_status_desc
+        from
+            order_info t1 inner join order_item t2 on t1.id = t2.order_id
+            left join supplier_info t3 on t1.supplier_id = t3.id
+            left join seller_info t4 on t1.seller_id = t4.id
+            left join order_abnormal t5 on t1.id = t5.order_info_id
+            left join supplier_storehouse_info t6 on t1.storehouse_id = t6.id
+    </sql>
+
+    <select id="selectOrderInfoDetailByOrderId" parameterType="Long" resultMap="OrderInfoDetailResult">
+        <include refid="selectOrderInfoDetailVo" />
+        where t1.id = #{orderId}
+    </select>
+
+    <select id="selectOrderInfoDetailList" parameterType="OrderInfo" resultMap="OrderInfoDetailResult">
+        <include refid="selectOrderInfoDetailVo" />
+        <where>
+            <if test="storehouseId != null  and storehouseId != ''"> and t1.storehouse_id = #{storehouseId}</if>
+            <if test="sellerId != null  and sellerId != ''"> and t1.seller_id = #{sellerId}</if>
+            <if test="supplierId != null  and supplierId != ''"> and t1.supplier_id = #{supplierId}</if>
+            <if test="orderType != null "> and t1.order_type = #{orderType}</if>
+            <if test="sorderNo != null  and sorderNo != ''"> and t1.sorder_no = #{sorderNo}</if>
+            <if test="declareOrderNo != null  and declareOrderNo != ''"> and t1.declare_order_no = #{declareOrderNo}</if>
+            <if test="outTradeNo != null  and outTradeNo != ''"> and t1.out_trade_no = #{outTradeNo}</if>
+            <if test="orderStatus != null  and orderStatus != ''"> and t1.order_status = #{orderStatus}</if>
+            <if test="expressName != null  and expressName != ''"> and t1.express_name like concat('%', #{expressName}, '%')</if>
+            <if test="shipOrderNumber != null  and shipOrderNumber != ''"> and t1.ship_order_number = #{shipOrderNumber}</if>
+            <if test="shopNick != null  and shopNick != ''"> and t1.shop_nick = #{shopNick}</if>
+            <if test="buyerRegNo != null  and buyerRegNo != ''"> and t1.buyer_reg_no = #{buyerRegNo}</if>
+            <if test="buyerName != null  and buyerName != ''"> and t1.buyer_name like concat('%', #{buyerName}, '%')</if>
+            <if test="buyerTelephone != null  and buyerTelephone != ''"> and t1.buyer_telephone = #{buyerTelephone}</if>
+            <if test="buyerIdType != null "> and t1.buyer_id_type = #{buyerIdType}</if>
+            <if test="buyerIdNumber != null  and buyerIdNumber != ''"> and t1.buyer_id_number = #{buyerIdNumber}</if>
+            <if test="consignee != null  and consignee != ''"> and t1.consignee = #{consignee}</if>
+            <if test="consigneeTelephone != null  and consigneeTelephone != ''"> and t1.consignee_telephone = #{consigneeTelephone}</if>
+            <if test="consigneeAddress != null  and consigneeAddress != ''"> and t1.consignee_address = #{consigneeAddress}</if>
+            <if test="consigneeZipCode != null  and consigneeZipCode != ''"> and t1.consignee_zip_code = #{consigneeZipCode}</if>
+            <if test="consigneeProvince != null  and consigneeProvince != ''"> and t1.consignee_province = #{consigneeProvince}</if>
+            <if test="consigneeCity != null  and consigneeCity != ''"> and t1.consignee_city = #{consigneeCity}</if>
+            <if test="consigneeDistrict != null  and consigneeDistrict != ''"> and t1.consignee_district = #{consigneeDistrict}</if>
+            <if test="totalAmount != null "> and t1.total_amount = #{totalAmount}</if>
+            <if test="realTotalAmount != null "> and t1.real_total_amount = #{realTotalAmount}</if>
+            <if test="taxTotalAmount != null "> and t1.tax_total_amount = #{taxTotalAmount}</if>
+            <if test="discountAmount != null "> and t1.discount_amount = #{discountAmount}</if>
+            <if test="freightAmount != null "> and t1.freight_amount = #{freightAmount}</if>
+            <if test="payMode != null  and payMode != ''"> and t1.pay_mode = #{payMode}</if>
+            <if test="payTime != null "> and t1.pay_time = #{payTime}</if>
+            <if test="gatewayOrderId != null  and gatewayOrderId != ''"> and t1.gateway_order_id = #{gatewayOrderId}</if>
+            <if test="addTime != null "> and t1.add_time = #{addTime}</if>
+            <if test="lgOrderCode != null  and lgOrderCode != ''"> and t1.lg_order_code = #{lgOrderCode}</if>
+            <if test="callbackTime != null "> and t1.callback_time = #{callbackTime}</if>
+            <if test="vat != null "> and t1.vat = #{vat}</if>
+            <if test="customsTax != null "> and t1.customs_tax = #{customsTax}</if>
+            <if test="consumptionTax != null "> and t1.consumption_tax = #{consumptionTax}</if>
+            <if test="orderStatusRemark != null  and orderStatusRemark != ''"> and t1.order_status_remark = #{orderStatusRemark}</if>
+            <if test="callbackMallStatus != null "> and t1.callback_mall_status = #{callbackMallStatus}</if>
+            <if test="callbackMallStatusValue != null  and callbackMallStatusValue != ''"> and t1.callback_mall_status_value = #{callbackMallStatusValue}</if>
+            <if test="allianceFreightAmount != null "> and t1.alliance_freight_amount = #{allianceFreightAmount}</if>
+            <if test="appointExpress != null  and appointExpress != ''"> and t1.appoint_express = #{appointExpress}</if>
+            <if test="sellerWithdrawalStatus != null  and sellerWithdrawalStatus != ''"> and t1.seller_withdrawal_status = #{sellerWithdrawalStatus}</if>
+            <if test="supplierWithdrawalStatus != null  and supplierWithdrawalStatus != ''"> and t1.supplier_withdrawal_status = #{supplierWithdrawalStatus}</if>
+            <if test="abnormalStatus != null  and abnormalStatus != ''"> and t1.abnormal_status = #{abnormalStatus}</if>
+            <if test="aftermarketStatus != null  and aftermarketStatus != ''"> and t1.aftermarket_status = #{aftermarketStatus}</if>
+        </where>
+    </select>
+
+    <select id="selectOrderInfoList" parameterType="OrderInfo" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        <where>
+            <if test="storehouseId != null  and storehouseId != ''"> and t1.storehouse_id = #{storehouseId}</if>
+            <choose>
+                <when test="sellerIds != null">
+                    and t1.seller_id in
+                    <foreach collection="sellerIds" item="sellerId" separator="," open="(" close=")">
+                        #{sellerId}
+                    </foreach>
+                </when>
+                <otherwise>
+                    <if test="sellerId != null  and sellerId != ''"> and t1.seller_id = #{sellerId}</if>
+                </otherwise>
+            </choose>
+            <if test="supplierId != null  and supplierId != ''"> and t1.supplier_id = #{supplierId}</if>
+            <if test="orderType != null "> and t1.order_type = #{orderType}</if>
+            <if test="sorderNo != null  and sorderNo != ''"> and t1.sorder_no = #{sorderNo}</if>
+            <if test="declareOrderNo != null  and declareOrderNo != ''"> and t1.declare_order_no = #{declareOrderNo}</if>
+            <if test="outTradeNo != null  and outTradeNo != ''"> and t1.out_trade_no = #{outTradeNo}</if>
+            <if test="orderStatus != null  and orderStatus != ''"> and t1.order_status = #{orderStatus}</if>
+            <if test="expressName != null  and expressName != ''"> and t1.express_name like concat('%', #{expressName}, '%')</if>
+            <if test="shipOrderNumber != null  and shipOrderNumber != ''"> and t1.ship_order_number = #{shipOrderNumber}</if>
+            <if test="shopNick != null  and shopNick != ''"> and t1.shop_nick = #{shopNick}</if>
+            <if test="buyerRegNo != null  and buyerRegNo != ''"> and t1.buyer_reg_no = #{buyerRegNo}</if>
+            <if test="buyerName != null  and buyerName != ''"> and t1.buyer_name like concat('%', #{buyerName}, '%')</if>
+            <if test="buyerTelephone != null  and buyerTelephone != ''"> and t1.buyer_telephone = #{buyerTelephone}</if>
+            <if test="buyerIdType != null "> and t1.buyer_id_type = #{buyerIdType}</if>
+            <if test="buyerIdNumber != null  and buyerIdNumber != ''"> and t1.buyer_id_number = #{buyerIdNumber}</if>
+            <if test="consignee != null  and consignee != ''"> and t1.consignee = #{consignee}</if>
+            <if test="consigneeTelephone != null  and consigneeTelephone != ''"> and t1.consignee_telephone = #{consigneeTelephone}</if>
+            <if test="consigneeAddress != null  and consigneeAddress != ''"> and t1.consignee_address = #{consigneeAddress}</if>
+            <if test="consigneeZipCode != null  and consigneeZipCode != ''"> and t1.consignee_zip_code = #{consigneeZipCode}</if>
+            <if test="consigneeProvince != null  and consigneeProvince != ''"> and t1.consignee_province = #{consigneeProvince}</if>
+            <if test="consigneeCity != null  and consigneeCity != ''"> and t1.consignee_city = #{consigneeCity}</if>
+            <if test="consigneeDistrict != null  and consigneeDistrict != ''"> and t1.consignee_district = #{consigneeDistrict}</if>
+            <if test="totalAmount != null "> and t1.total_amount = #{totalAmount}</if>
+            <if test="realTotalAmount != null "> and t1.real_total_amount = #{realTotalAmount}</if>
+            <if test="taxTotalAmount != null "> and t1.tax_total_amount = #{taxTotalAmount}</if>
+            <if test="discountAmount != null "> and t1.discount_amount = #{discountAmount}</if>
+            <if test="freightAmount != null "> and t1.freight_amount = #{freightAmount}</if>
+            <if test="payMode != null  and payMode != ''"> and t1.pay_mode = #{payMode}</if>
+            <if test="payTime != null "> and t1.pay_time like  concat('%',#{payTime}, '%') </if>
+
+            <if test="gatewayOrderId != null  and gatewayOrderId != ''"> and t1.gateway_order_id = #{gatewayOrderId}</if>
+            <if test="addTime != null "> and t1.add_time like  concat('%',#{addTime}, '%') </if>
+            <if test="lgOrderCode != null  and lgOrderCode != ''"> and t1.lg_order_code = #{lgOrderCode}</if>
+            <if test="callbackTime != null "> and t1.callback_time = #{callbackTime}</if>
+            <if test="vat != null "> and t1.vat = #{vat}</if>
+            <if test="customsTax != null "> and t1.customs_tax = #{customsTax}</if>
+            <if test="consumptionTax != null "> and t1.consumption_tax = #{consumptionTax}</if>
+            <if test="orderStatusRemark != null  and orderStatusRemark != ''"> and t1.order_status_remark = #{orderStatusRemark}</if>
+            <if test="callbackMallStatus != null "> and t1.callback_mall_status = #{callbackMallStatus}</if>
+            <if test="callbackMallStatusValue != null  and callbackMallStatusValue != ''"> and t1.callback_mall_status_value = #{callbackMallStatusValue}</if>
+            <if test="allianceFreightAmount != null "> and t1.alliance_freight_amount = #{allianceFreightAmount}</if>
+            <if test="appointExpress != null  and appointExpress != ''"> and t1.appoint_express = #{appointExpress}</if>
+            <if test="sellerWithdrawalStatus != null  and sellerWithdrawalStatus != ''"> and t1.seller_withdrawal_status = #{sellerWithdrawalStatus}</if>
+            <if test="supplierWithdrawalStatus != null  and supplierWithdrawalStatus != ''"> and t1.supplier_withdrawal_status = #{supplierWithdrawalStatus}</if>
+            <if test="abnormalStatus != null  and abnormalStatus != ''"> and t1.abnormal_status = #{abnormalStatus}</if>
+            <if test="aftermarketStatus != null  and aftermarketStatus != ''"> and t1.aftermarket_status = #{aftermarketStatus}</if>
+
+            <if test="payTimeBegin != null "> and t1.pay_time &gt;= #{payTimeBegin} </if>
+            <if test="payTimeEnd != null "> and t1.pay_time &lt;= #{payTimeEnd} </if>
+            <if test="addTimeBegin != null "> and t1.add_time &gt;= #{addTimeBegin}</if>
+            <if test="addTimeEnd != null "> and t1.add_time &lt;= #{addTimeEnd}</if>
+        </where>
+        order by t1.add_time desc
+    </select>
+
+
+    <select id="selectAfterOrderInfoList" parameterType="OrderInfo" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        <where>
+            t1.aftermarket_status between 1 and 3
+            <if test="storehouseId != null  and storehouseId != ''"> and t1.storehouse_id = #{storehouseId}</if>
+            <if test="sellerId != null  and sellerId != ''"> and t1.seller_id = #{sellerId}</if>
+            <if test="supplierId != null  and supplierId != ''"> and t1.supplier_id = #{supplierId}</if>
+            <if test="orderType != null "> and t1.order_type = #{orderType}</if>
+            <if test="sorderNo != null  and sorderNo != ''"> and t1.sorder_no = #{sorderNo}</if>
+            <if test="declareOrderNo != null  and declareOrderNo != ''"> and t1.declare_order_no = #{declareOrderNo}</if>
+            <if test="outTradeNo != null  and outTradeNo != ''"> and t1.out_trade_no = #{outTradeNo}</if>
+            <if test="orderStatus != null  and orderStatus != ''"> and t1.order_status = #{orderStatus}</if>
+            <if test="expressName != null  and expressName != ''"> and t1.express_name like concat('%', #{expressName}, '%')</if>
+            <if test="shipOrderNumber != null  and shipOrderNumber != ''"> and t1.ship_order_number = #{shipOrderNumber}</if>
+            <if test="shopNick != null  and shopNick != ''"> and t1.shop_nick = #{shopNick}</if>
+            <if test="buyerRegNo != null  and buyerRegNo != ''"> and t1.buyer_reg_no = #{buyerRegNo}</if>
+            <if test="buyerName != null  and buyerName != ''"> and t1.buyer_name like concat('%', #{buyerName}, '%')</if>
+            <if test="buyerTelephone != null  and buyerTelephone != ''"> and t1.buyer_telephone = #{buyerTelephone}</if>
+            <if test="buyerIdType != null "> and t1.buyer_id_type = #{buyerIdType}</if>
+            <if test="buyerIdNumber != null  and buyerIdNumber != ''"> and t1.buyer_id_number = #{buyerIdNumber}</if>
+            <if test="consignee != null  and consignee != ''"> and t1.consignee = #{consignee}</if>
+            <if test="consigneeTelephone != null  and consigneeTelephone != ''"> and t1.consignee_telephone = #{consigneeTelephone}</if>
+            <if test="consigneeAddress != null  and consigneeAddress != ''"> and t1.consignee_address = #{consigneeAddress}</if>
+            <if test="consigneeZipCode != null  and consigneeZipCode != ''"> and t1.consignee_zip_code = #{consigneeZipCode}</if>
+            <if test="consigneeProvince != null  and consigneeProvince != ''"> and t1.consignee_province = #{consigneeProvince}</if>
+            <if test="consigneeCity != null  and consigneeCity != ''"> and t1.consignee_city = #{consigneeCity}</if>
+            <if test="consigneeDistrict != null  and consigneeDistrict != ''"> and t1.consignee_district = #{consigneeDistrict}</if>
+            <if test="totalAmount != null "> and t1.total_amount = #{totalAmount}</if>
+            <if test="realTotalAmount != null "> and t1.real_total_amount = #{realTotalAmount}</if>
+            <if test="taxTotalAmount != null "> and t1.tax_total_amount = #{taxTotalAmount}</if>
+            <if test="discountAmount != null "> and t1.discount_amount = #{discountAmount}</if>
+            <if test="freightAmount != null "> and t1.freight_amount = #{freightAmount}</if>
+            <if test="payMode != null  and payMode != ''"> and t1.pay_mode = #{payMode}</if>
+            <if test="payTime != null "> and t1.pay_time = #{payTime}</if>
+            <if test="gatewayOrderId != null  and gatewayOrderId != ''"> and t1.gateway_order_id = #{gatewayOrderId}</if>
+            <if test="addTime != null "> and t1.add_time = #{addTime}</if>
+            <if test="lgOrderCode != null  and lgOrderCode != ''"> and t1.lg_order_code = #{lgOrderCode}</if>
+            <if test="callbackTime != null "> and t1.callback_time = #{callbackTime}</if>
+            <if test="vat != null "> and t1.vat = #{vat}</if>
+            <if test="customsTax != null "> and t1.customs_tax = #{customsTax}</if>
+            <if test="consumptionTax != null "> and t1.consumption_tax = #{consumptionTax}</if>
+            <if test="orderStatusRemark != null  and orderStatusRemark != ''"> and t1.order_status_remark = #{orderStatusRemark}</if>
+            <if test="callbackMallStatus != null "> and t1.callback_mall_status = #{callbackMallStatus}</if>
+            <if test="callbackMallStatusValue != null  and callbackMallStatusValue != ''"> and t1.callback_mall_status_value = #{callbackMallStatusValue}</if>
+            <if test="allianceFreightAmount != null "> and t1.alliance_freight_amount = #{allianceFreightAmount}</if>
+            <if test="appointExpress != null  and appointExpress != ''"> and t1.appoint_express = #{appointExpress}</if>
+            <if test="sellerWithdrawalStatus != null  and sellerWithdrawalStatus != ''"> and t1.seller_withdrawal_status = #{sellerWithdrawalStatus}</if>
+            <if test="supplierWithdrawalStatus != null  and supplierWithdrawalStatus != ''"> and t1.supplier_withdrawal_status = #{supplierWithdrawalStatus}</if>
+            <if test="abnormalStatus != null  and abnormalStatus != ''"> and t1.abnormal_status = #{abnormalStatus}</if>
+
+        </where>
+    </select>
+
+
+    <select id="selectOrderInfoById" parameterType="Long" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertOrderInfo" parameterType="OrderInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into order_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="storehouseId != null">storehouse_id,</if>
+            <if test="sellerId != null">seller_id,</if>
+            <if test="supplierId != null">supplier_id,</if>
+            <if test="orderType != null">order_type,</if>
+            <if test="sorderNo != null">sorder_no,</if>
+            <if test="declareOrderNo != null">declare_order_no,</if>
+            <if test="outTradeNo != null">out_trade_no,</if>
+            <if test="orderStatus != null">order_status,</if>
+            <if test="expressName != null">express_name,</if>
+            <if test="shipOrderNumber != null">ship_order_number,</if>
+            <if test="shopNick != null">shop_nick,</if>
+            <if test="buyerRegNo != null">buyer_reg_no,</if>
+            <if test="buyerName != null">buyer_name,</if>
+            <if test="buyerTelephone != null">buyer_telephone,</if>
+            <if test="buyerIdType != null">buyer_id_type,</if>
+            <if test="buyerIdNumber != null">buyer_id_number,</if>
+            <if test="consignee != null">consignee,</if>
+            <if test="consigneeTelephone != null">consignee_telephone,</if>
+            <if test="consigneeAddress != null">consignee_address,</if>
+            <if test="consigneeZipCode != null">consignee_zip_code,</if>
+            <if test="consigneeProvince != null">consignee_province,</if>
+            <if test="consigneeCity != null">consignee_city,</if>
+            <if test="consigneeDistrict != null">consignee_district,</if>
+            <if test="totalAmount != null">total_amount,</if>
+            <if test="realTotalAmount != null">real_total_amount,</if>
+            <if test="taxTotalAmount != null">tax_total_amount,</if>
+            <if test="discountAmount != null">discount_amount,</if>
+            <if test="freightAmount != null">freight_amount,</if>
+            <if test="payMode != null">pay_mode,</if>
+            <if test="payTime != null">pay_time,</if>
+            <if test="gatewayOrderId != null">gateway_order_id,</if>
+            <if test="addTime != null">add_time,</if>
+            <if test="lgOrderCode != null">lg_order_code,</if>
+            <if test="callbackTime != null">callback_time,</if>
+            <if test="vat != null">vat,</if>
+            <if test="customsTax != null">customs_tax,</if>
+            <if test="consumptionTax != null">consumption_tax,</if>
+            <if test="orderStatusRemark != null">order_status_remark,</if>
+            <if test="callbackMallStatus != null">callback_mall_status,</if>
+            <if test="callbackMallStatusValue != null">callback_mall_status_value,</if>
+            <if test="allianceFreightAmount != null">alliance_freight_amount,</if>
+            <if test="appointExpress != null">appoint_express,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="sellerWithdrawalStatus != null">seller_withdrawal_status,</if>
+            <if test="supplierWithdrawalStatus != null">supplier_withdrawal_status,</if>
+            <if test="sellerWithdrawalAmount != null">seller_withdrawal_amount,</if>
+            <if test="supplierWithdrawalAmount != null">supplier_withdrawal_amount,</if>
+            <if test="aftermarketStatus != null">aftermarket_status,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="storehouseId != null">#{storehouseId},</if>
+            <if test="sellerId != null">#{sellerId},</if>
+            <if test="supplierId != null">#{supplierId},</if>
+            <if test="orderType != null">#{orderType},</if>
+            <if test="sorderNo != null">#{sorderNo},</if>
+            <if test="declareOrderNo != null">#{declareOrderNo},</if>
+            <if test="outTradeNo != null">#{outTradeNo},</if>
+            <if test="orderStatus != null">#{orderStatus},</if>
+            <if test="expressName != null">#{expressName},</if>
+            <if test="shipOrderNumber != null">#{shipOrderNumber},</if>
+            <if test="shopNick != null">#{shopNick},</if>
+            <if test="buyerRegNo != null">#{buyerRegNo},</if>
+            <if test="buyerName != null">#{buyerName},</if>
+            <if test="buyerTelephone != null">#{buyerTelephone},</if>
+            <if test="buyerIdType != null">#{buyerIdType},</if>
+            <if test="buyerIdNumber != null">#{buyerIdNumber},</if>
+            <if test="consignee != null">#{consignee},</if>
+            <if test="consigneeTelephone != null">#{consigneeTelephone},</if>
+            <if test="consigneeAddress != null">#{consigneeAddress},</if>
+            <if test="consigneeZipCode != null">#{consigneeZipCode},</if>
+            <if test="consigneeProvince != null">#{consigneeProvince},</if>
+            <if test="consigneeCity != null">#{consigneeCity},</if>
+            <if test="consigneeDistrict != null">#{consigneeDistrict},</if>
+            <if test="totalAmount != null">#{totalAmount},</if>
+            <if test="realTotalAmount != null">#{realTotalAmount},</if>
+            <if test="taxTotalAmount != null">#{taxTotalAmount},</if>
+            <if test="discountAmount != null">#{discountAmount},</if>
+            <if test="freightAmount != null">#{freightAmount},</if>
+            <if test="payMode != null">#{payMode},</if>
+            <if test="payTime != null">#{payTime},</if>
+            <if test="gatewayOrderId != null">#{gatewayOrderId},</if>
+            <if test="addTime != null">#{addTime},</if>
+            <if test="lgOrderCode != null">#{lgOrderCode},</if>
+            <if test="callbackTime != null">#{callbackTime},</if>
+            <if test="vat != null">#{vat},</if>
+            <if test="customsTax != null">#{customsTax},</if>
+            <if test="consumptionTax != null">#{consumptionTax},</if>
+            <if test="orderStatusRemark != null">#{orderStatusRemark},</if>
+            <if test="callbackMallStatus != null">#{callbackMallStatus},</if>
+            <if test="callbackMallStatusValue != null">#{callbackMallStatusValue},</if>
+            <if test="allianceFreightAmount != null">#{allianceFreightAmount},</if>
+            <if test="appointExpress != null">#{appointExpress},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="sellerWithdrawalStatus != null">#{sellerWithdrawalStatus},</if>
+            <if test="supplierWithdrawalStatus != null">#{supplierWithdrawalStatus},</if>
+            <if test="sellerWithdrawalAmount != null">#{sellerWithdrawalAmount},</if>
+            <if test="supplierWithdrawalAmount != null">#{supplierWithdrawalAmount},</if>
+            <if test="aftermarketStatus != null">#{aftermarketStatus},</if>
+        </trim>
+    </insert>
+
+    <update id="updateOrderInfo" parameterType="OrderInfo">
+        update order_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="storehouseId != null">storehouse_id = #{storehouseId},</if>
+            <if test="sellerId != null">seller_id = #{sellerId},</if>
+            <if test="supplierId != null">supplier_id = #{supplierId},</if>
+            <if test="orderType != null">order_type = #{orderType},</if>
+            <if test="sorderNo != null">sorder_no = #{sorderNo},</if>
+            <if test="declareOrderNo != null">declare_order_no = #{declareOrderNo},</if>
+            <if test="outTradeNo != null">out_trade_no = #{outTradeNo},</if>
+            <if test="orderStatus != null">order_status = #{orderStatus},</if>
+            <if test="expressName != null">express_name = #{expressName},</if>
+            <if test="shipOrderNumber != null">ship_order_number = #{shipOrderNumber},</if>
+            <if test="shopNick != null">shop_nick = #{shopNick},</if>
+            <if test="buyerRegNo != null">buyer_reg_no = #{buyerRegNo},</if>
+            <if test="buyerName != null">buyer_name = #{buyerName},</if>
+            <if test="buyerTelephone != null">buyer_telephone = #{buyerTelephone},</if>
+            <if test="buyerIdType != null">buyer_id_type = #{buyerIdType},</if>
+            <if test="buyerIdNumber != null">buyer_id_number = #{buyerIdNumber},</if>
+            <if test="consignee != null">consignee = #{consignee},</if>
+            <if test="consigneeTelephone != null">consignee_telephone = #{consigneeTelephone},</if>
+            <if test="consigneeAddress != null">consignee_address = #{consigneeAddress},</if>
+            <if test="consigneeZipCode != null">consignee_zip_code = #{consigneeZipCode},</if>
+            <if test="consigneeProvince != null">consignee_province = #{consigneeProvince},</if>
+            <if test="consigneeCity != null">consignee_city = #{consigneeCity},</if>
+            <if test="consigneeDistrict != null">consignee_district = #{consigneeDistrict},</if>
+            <if test="totalAmount != null">total_amount = #{totalAmount},</if>
+            <if test="realTotalAmount != null">real_total_amount = #{realTotalAmount},</if>
+            <if test="taxTotalAmount != null">tax_total_amount = #{taxTotalAmount},</if>
+            <if test="discountAmount != null">discount_amount = #{discountAmount},</if>
+            <if test="freightAmount != null">freight_amount = #{freightAmount},</if>
+            <if test="payMode != null">pay_mode = #{payMode},</if>
+            <if test="payTime != null">pay_time = #{payTime},</if>
+            <if test="gatewayOrderId != null">gateway_order_id = #{gatewayOrderId},</if>
+            <if test="addTime != null">add_time = #{addTime},</if>
+            <if test="lgOrderCode != null">lg_order_code = #{lgOrderCode},</if>
+            <if test="callbackTime != null">callback_time = #{callbackTime},</if>
+            <if test="vat != null">vat = #{vat},</if>
+            <if test="customsTax != null">customs_tax = #{customsTax},</if>
+            <if test="consumptionTax != null">consumption_tax = #{consumptionTax},</if>
+            <if test="orderStatusRemark != null">order_status_remark = #{orderStatusRemark},</if>
+            <if test="callbackMallStatus != null">callback_mall_status = #{callbackMallStatus},</if>
+            <if test="callbackMallStatusValue != null">callback_mall_status_value = #{callbackMallStatusValue},</if>
+            <if test="allianceFreightAmount != null">alliance_freight_amount = #{allianceFreightAmount},</if>
+            <if test="appointExpress != null">appoint_express = #{appointExpress},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="sellerWithdrawalStatus != null">seller_withdrawal_status = #{sellerWithdrawalStatus},</if>
+            <if test="supplierWithdrawalStatus != null">supplier_withdrawal_status = #{supplierWithdrawalStatus},</if>
+            <if test="sellerWithdrawalAmount != null">seller_withdrawal_amount = #{sellerWithdrawalAmount},</if>
+            <if test="supplierWithdrawalAmount != null">supplier_withdrawal_amount = #{supplierWithdrawalAmount},</if>
+            <if test="aftermarketStatus != null">aftermarket_status = #{aftermarketStatus},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOrderInfoById" parameterType="Long">
+        delete from order_info where id = #{id}
+    </delete>
+
+    <delete id="deleteOrderInfoByIds" parameterType="String">
+        delete from order_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="remarkAbnormalOrder" parameterType="long">
+        update order_info set abnormal_status = 1 where id = #{id}
+    </update>
+
+    <update id="rollbackAbnormal" parameterType="long">
+        update order_info set abnormal_status = 2 where id = #{id}
+    </update>
+
+    <insert id="saveOrderAftermarketStatusFollowup" parameterType="com.ruoyi.system.domain.OrderAftermarketFollowup" useGeneratedKeys="true" keyProperty="id">
+        insert into order_aftermarket_followup
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="aftermarketStatus != null">aftermarket_status,</if>
+            <if test="aftermarketStatusDesc != null">aftermarket_status_desc,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">#{orderId},</if>
+            <if test="aftermarketStatus != null">#{aftermarketStatus},</if>
+            <if test="aftermarketStatusDesc != null">#{aftermarketStatusDesc},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <select id="queryOrderAftermarketStatusFollowup" parameterType="com.ruoyi.system.domain.OrderAftermarketFollowup" resultType="com.ruoyi.system.domain.OrderAftermarketFollowup">
+        select
+            t1.id as id,
+            t1.aftermarket_status as aftermarketStatus,
+            t1.aftermarket_status_desc as aftermarketStatusDesc,
+            t2.nick_name as createName
+        from order_aftermarket_followup t1
+            left join sys_user t2 on t1.create_by = t2.user_id
+        where t1.order_id = #{orderId} and t1.del_flag = 0
+        <if test="createBy != null">
+            and t1.create_by = #{createBy}
+        </if>
+    </select>
+
+    <insert id="saveOrderPushLog" parameterType="com.ruoyi.system.domain.OrderPushLog">
+        insert into order_push_log(req_info, resp_info, create_by, create_time)
+        values (#{reqInfo}, #{respInfo}, #{createBy}, #{createTime})
+    </insert>
+</mapper>
