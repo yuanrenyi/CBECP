@@ -1,0 +1,157 @@
+@import "~element-ui/packages/theme-chalk/src/common/var.scss";
+@import "~element-ui/packages/theme-chalk/src/mixins/mixins.scss";
+
+[class*="el-col-"] {
+  float: left;
+  box-sizing: border-box;
+}
+
+.el-col-0 {
+  display: none;
+}
+$list:  (1 1) (1.6 1\.6) (2 2) (3 3) (4 4)  (4.8 4\.8) (5 5) (6 6) (7 7) (8 8) (9 9) (9.6, 9\.6) (10 10) (11 11) (12 12) (13 13) (14 14) (15 15) (16 16) (17 17) (18 18) (19 19) (20 20) (21 21) (22 22) (23 23) (24 24);
+@each $i , $name in $list {
+    .el-col-#{$name} {
+      width: (1 / 24 * $i * 100) * 1%;
+    }
+    .el-col-offset-#{$name} {
+      margin-left: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-pull-#{$name} {
+      position: relative;
+      right: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-push-#{$name} {
+      position: relative;
+      left: (1 / 24 * $i * 100) * 1%;
+    }
+}
+
+@include res(xs) {
+  .el-col-xs-0 {
+    display: none;
+  }
+  @each $i,$name in $list {
+    .el-col-xs-#{$name} {
+      width: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-xs-offset-#{$name} {
+      margin-left: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-xs-pull-#{$name} {
+      position: relative;
+      right: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-xs-push-#{$name} {
+      position: relative;
+      left: (1 / 24 * $i * 100) * 1%;
+    }
+  }
+
+}
+
+@include res(sm) {
+  .el-col-sm-0 {
+    display: none;
+  }
+  @each $i,$name in $list {
+    .el-col-sm-#{$name} {
+      width: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-sm-offset-#{$name} {
+      margin-left: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-sm-pull-#{$name} {
+      position: relative;
+      right: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-sm-push-#{$name} {
+      position: relative;
+      left: (1 / 24 * $i * 100) * 1%;
+    }
+  }
+}
+
+@include res(md) {
+  .el-col-md-0 {
+    display: none;
+  }
+  @each $i,$name in $list {
+    .el-col-md-#{$name} {
+      width: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-md-offset-#{$name} {
+      margin-left: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-md-pull-#{$name} {
+      position: relative;
+      right: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-md-push-#{$name} {
+      position: relative;
+      left: (1 / 24 * $i * 100) * 1%;
+    }
+  }
+}
+
+@include res(lg) {
+  .el-col-lg-0 {
+    display: none;
+  }
+  @each $i,$name in $list {
+    .el-col-lg-#{$name} {
+      width: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-lg-offset-#{$name} {
+      margin-left: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-lg-pull-#{$name} {
+      position: relative;
+      right: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-lg-push-#{$name} {
+      position: relative;
+      left: (1 / 24 * $i * 100) * 1%;
+    }
+  }
+}
+
+@include res(xl) {
+  .el-col-xl-0 {
+    display: none;
+  }
+  @each $i , $name in $list {
+
+    .el-col-xl-#{$name} {
+      width: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-xl-offset-#{$name} {
+      margin-left: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-xl-pull-#{$name} {
+      position: relative;
+      right: (1 / 24 * $i * 100) * 1%;
+    }
+
+    .el-col-xl-push-#{$name} {
+      position: relative;
+      left: (1 / 24 * $i * 100) * 1%;
+    }
+  }
+}
